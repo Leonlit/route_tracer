@@ -7,9 +7,12 @@ app = Flask(__name__)
 def homePage():
     return render_template("index.html")
 
-@app.route("/tracedInfo/<string:domain>")
-def tracedInfo(domain):
-    return render_template('tracedInfo.html', domainName = domain)
+# when user inputted the domain that he/she would like to trace
+import module.utilities as utilities
+@app.route("/tracedInfo/<string:jsonData>")
+def tracedInfo(jsonData):
+    # utilities.getUserIpLocation()
+    return render_template('tracedInfo.html', routesInfo = jsonData)
 
 
 if __name__ == '__main__':

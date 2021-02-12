@@ -10,7 +10,13 @@
 
 ### todo
 
-
-
+- construct code for traceroute command
+    - window
+    - linux
+    - mac ?
+- map integration
+- map drawing with route line
+- spam prevention
+- saving data in local storage as history
 
 
