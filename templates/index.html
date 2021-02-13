@@ -4,11 +4,12 @@
 	</head>
 	<body>
 		<h1>Route Tracer - v0.1</h1>
-		<form onsubmit="initiate()">
-			<input required type="url" id="domainName" placeholder="https://www.google.com/" pattern="https://.*"/>
-			<input required type="submit" class="formBtn submitBtn"/>
+		<form>
+			<input required type="url" id="domainName" placeholder="https://www.google.com/"/>
+			<input required type="button" class="formBtn submitBtn" onclick="initiate()" value="Trace"/>
 		</form>
 	</body>
 </html>
 
-<script src="index.js"></script>
+<script src="/js/index.js"></script>
+<script src="/js/errorHandling.js"></script>

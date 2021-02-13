@@ -1,6 +1,6 @@
 #! /bin/python3
 
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
 app = Flask(__name__)
 
 @app.route('/')
@@ -14,10 +14,14 @@ def tracedInfo(ipAddr):
     routesInfo = initiate.initiateTracing(ipAddr)
     return routesInfo
 
-@app.route("/checkDomain/<string:domainName>")
-def tracedInfo(domainName):
-    routesInfo = initiate.initiateTracing(ipAddr)
-    return routesInfo
+@app.route("/pingDomain/<string:domainName>")
+def pingDomain(domainName):
+    domainNameAlive = initiate.checkIfDomainIsAlive(domainName)
+    return domainNameAlive
+
+@app.route('/js/<path:path>')
+def send_js(path): 
+    return send_from_directory('js', path)
 
 if __name__ == '__main__':
        app.run(debug = True)

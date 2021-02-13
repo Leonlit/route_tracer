@@ -48,3 +48,12 @@ def getUserIpInfo():
 def saveInfoIntoFile(infoArr):
     with open('IPsInfo.json', 'w', encoding='utf-8') as fileObj:
         json.dump(infoArr, fileObj, ensure_ascii=False, indent=4)
+
+import platform, subprocess 
+def pingDomainName(domainIP):
+    param = '-n' if platform.system().lower()=='windows' else '-c'
+    command = ['ping', param, '1', domainIP]
+    return subprocess.call(command) == 0
+
+def constructJSON(dataList):
+    return json.dumps(dataList)
