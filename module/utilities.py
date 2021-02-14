@@ -45,9 +45,9 @@ def getUserIpInfo():
         return ipInfo
     return False
 
-def saveInfoIntoFile(infoArr):
-    with open('IPsInfo.json', 'w', encoding='utf-8') as fileObj:
-        json.dump(infoArr, fileObj, ensure_ascii=False, indent=4)
+def saveDataIntoFile(filename, data):
+    with open(filename, 'w', encoding='utf-8') as fileObj:
+        json.dump(data, fileObj, ensure_ascii=False, indent=4)
 
 import platform, subprocess 
 def pingDomainName(domainIP):

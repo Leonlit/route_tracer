@@ -13,8 +13,8 @@ function initiate () {
 		showErrorPopUp(1);
 		return
 	}
-	//const getJsonData = getTracedInfo(domainName)
-
+	const getJsonData = getTracedInfo(domainName)
+	console.log(getJsonData);
 }
 
 function isUrlValid(str) {

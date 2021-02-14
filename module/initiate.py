@@ -1,8 +1,11 @@
 import module.utilities as utilities
-
+import module.tracingDomain as trace
 def initiateTracing (ipAddr):
+    data = {}
     userIP = utilities.getUserIpInfo()
-    return userIP # testing
+    print(userIP)
+    fullRouteData = trace.getTraceInfo(ipAddr)
+    return fullRouteData # testing
 
 def checkIfDomainIsAlive(domainIP):
     isDomainAlive = utilities.pingDomainName(domainIP)
