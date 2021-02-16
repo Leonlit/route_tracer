@@ -1,4 +1,6 @@
 import module.utilities as utilities
+import platform, subprocess, re, ipaddress
+
 def getTraceInfo (domainIP):
     domainAlive = utilities.pingDomainName(domainIP)
     if not domainAlive:
@@ -6,24 +8,23 @@ def getTraceInfo (domainIP):
     result = traceDomain(domainIP)
     return result
 
-import platform, subprocess 
 def traceDomain(domainIP):
     osType = 1 if platform.system().lower()=='windows' else 0
     commandtype = ('traceroute' ,'tracert')
-    filename = f"{domainIP}_route.txt"
+    filename = f"./{domainIP}_route.txt"
     command = [commandtype[osType], domainIP]
     try:
-        routeOutput = subprocess.check_output(command)
+        routeOutput = subprocess.check_output(command).decode("utf-8") 
         print(routeOutput)
         # now the results will be in list form
         filteredOutput = filterRouteOutput(routeOutput, osType)
         filteredOutput.insert(0, domainIP)
+        print(filteredOutput)
         return filteredOutput
     except Exception as e:
         print(e,"Unexpected error occured! Could not trace route.")
     return False
 
-import re
 def filterRouteOutput(output, osType):
     outputContents = output.split("\n")
     #matching ip addresses
@@ -38,7 +39,6 @@ def filterRouteOutput(output, osType):
         return False
     return ips
 
-import ipaddress
 # if its not an public IP the system will just filter it out
 def isIP_Public(ipAddr):
     if ipAddr is None:

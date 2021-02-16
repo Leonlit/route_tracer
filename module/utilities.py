@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from dotenv import load_dotenv
-import os
+import os, platform, subprocess 
 
 IP_INFO_KEY = os.getenv("IPINFO_API_KEY")
 IP_GEOLOCATION_KEY = os.getenv("IPGEOLOCATION_API_KEY")
@@ -49,7 +49,6 @@ def saveDataIntoFile(filename, data):
     with open(filename, 'w', encoding='utf-8') as fileObj:
         json.dump(data, fileObj, ensure_ascii=False, indent=4)
 
-import platform, subprocess 
 def pingDomainName(domainIP):
     param = '-n' if platform.system().lower()=='windows' else '-c'
     command = ['ping', param, '1', domainIP]
