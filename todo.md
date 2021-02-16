@@ -18,6 +18,7 @@
 - map drawing with route line
 - spam prevention
 - saving data in local storage as history
-- filtering the output from tracert/traceroute (regex to check bogon IPs)
+- filtering the output from tracert/traceroute
+- using powershell to filter 
 
 

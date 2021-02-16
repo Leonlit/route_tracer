@@ -1,33 +1,46 @@
+import module.utilities as utilities
 def getTraceInfo (domainIP):
+    domainAlive = utilities.pingDomainName(domainIP)
+    if not domainAlive:
+        return False
     result = traceDomain(domainIP)
-    if result:
+    return result
 
-
-
+import platform, subprocess 
 def traceDomain(domainIP):
     osType = 1 if platform.system().lower()=='windows' else 0
     commandtype = ('traceroute' ,'tracert')
-    filename = f"> {domainIP}_route.txt"
-    command = [commandtype[osType], domainIP, f" > {filename}"]
+    filename = f"{domainIP}_route.txt"
+    command = [commandtype[osType], domainIP]
     try:
         routeOutput = subprocess.check_output(command)
+        print(routeOutput)
+        # now the results will be in list form
         filteredOutput = filterRouteOutput(routeOutput, osType)
+        filteredOutput.insert(0, domainIP)
         return filteredOutput
-    except:
-        print("Unexpected error occured! Could not trace route.")
+    except Exception as e:
+        print(e,"Unexpected error occured! Could not trace route.")
     return False
 
+import re
 def filterRouteOutput(output, osType):
-    '''
-        # Linux version (to google.com)
-            1st         :  domain traced to 
-            2nd         :  my internal network
-            3-5th       :  normally bogon 
-            6th         :  US's DNS
-            7th-(n-1)th :  jump to multiple node (location/machine/routers)
-            nth         :  the server i'm assigned to access to
+    outputContents = output.split("\n")
+    #matching ip addresses
+    regex = '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}'
+    ips = []
+    for line in outputContents:
+        match = re.findall(regex, line)
+        if match:
+            ips.append(match[0])
 
-    '''
-    linux = "traceroute google.com | awk /./ | grep -E '([0-2][0-9]+)(.)?' | awk '{print $3}' | grep . | tr -d '()'"
+    if not ips:
+        return False
+    return ips
 
-    
+import ipaddress
+# if its not an public IP the system will just filter it out
+def isIP_Public(ipAddr):
+    if ipAddr is None:
+        return False    
+    return ipaddress.ip_address(ipAddr).is_global
