@@ -46,17 +46,22 @@ def getUserIpInfo():
     return False
 
 def saveDataIntoFile(filename, data):
-    with open(f'{filename}.txt', 'w', encoding='utf-8') as fileObj:
+    with open(f'./cache/{filename}.txt', 'w', encoding='utf-8') as fileObj:
         json.dump(data, fileObj, ensure_ascii=False, indent=4)
 
 def pingDomainName(domainIP):
     param = '-n' if platform.system().lower()=='windows' else '-c'
     command = ['ping', param, '1', domainIP]
-    return subprocess.call(
-        command,
-        stdout=subprocess.DEVNULL, 
-        stderr=subprocess.STDOUT
-    ) == 0
+    try:
+        result = subprocess.call(
+            command,
+            stdout=subprocess.DEVNULL, 
+            stderr=subprocess.STDOUT
+        )
+        print(result)
+    except:
+        return False
+    return result == 0
 
 def constructJSON(dataList):
     return json.dumps(dataList)

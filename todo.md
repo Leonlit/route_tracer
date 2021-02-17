@@ -18,6 +18,8 @@
     - mac ?
 - test traceroute command:
     - ~window~
+    - linux
+    - mac ?
 - map integration
 - map drawing with route line
 - spam prevention

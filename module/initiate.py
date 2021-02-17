@@ -3,22 +3,23 @@ import module.tracingDomain as trace
 from module.errorHandling import RequestType, RequestError
 
 def initiateTracing (ipAddr):
-    #if (not trace.isIPValid(ipAddr) or 
-     #   not utilities.pingDomainName(ipAddr)):
-     #   return str(RequestType.invalidIP)
+    if not trace.isIP_valid(ipAddr):
+        return RequestType.invalidIP.getResponse()
+    if not utilities.pingDomainName(ipAddr):
+        return RequestType.invalidIP.serviceUnavailable()
     data = {}
-    # userIP = utilities.getUserIpInfo()
-    # print(userIP)
+    #userIP = utilities.getUserIpInfo()
+
     fullRouteData = trace.getTraceInfo(ipAddr)
     if not fullRouteData:
-        return False
-        #error
-    return fullRouteData # testing
+        return RequestType.internalError.getResponse()
+    req = RequestError(200, fullRouteData)
+    return req.getResponse()
 
 def checkIfDomainIsAlive(domainIP):
-    req = RequestError(
-        200 ,{
-            "domainAlive": utilities.pingDomainName(domainIP)
-        }
-    )
-    return req.getResponse()
+    if not trace.isIP_valid(domainIP):
+        return RequestType.invalidIP.getResponse()
+    res = utilities.pingDomainName(domainIP)
+    if not res:
+        return RequestType.serviceUnavailable.getResponse()
+    return RequestType.success.getResponse()

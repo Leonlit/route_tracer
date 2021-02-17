@@ -10,6 +10,8 @@ class RequestError:
         }
 
 class RequestType:
+    success = RequestError(200, "Success")
     invalidIP = RequestError(422, "Invalid IP address")
     invalidParameter = RequestError(422, "Invalid Parameter")
-    success = RequestError(200, "Success")
+    internalError = RequestError(500, "Failed to trace route, please try again later")
+    serviceUnavailable = RequestError(503, "Unable to handle request, please try again later")

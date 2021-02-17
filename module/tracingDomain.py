@@ -5,6 +5,7 @@ def getTraceInfo (domainIP):
     result = traceDomain(domainIP)
     return result
 
+# need to figure out how to use traceroute in mac
 def traceDomain(domainIP):
     platformType = platform.system().lower()
     if platformType =='windows':
@@ -74,13 +75,19 @@ def getIP_type(ipAddr):
         return "loopback"
     if ipObj.is_link_local:
         return "link local"
-    return "public"
+    if  ipObj.is_link_local:
+        return "public"
+    return False
 
-def isIPValid(ipAddr):
-    try:
-        # if we can assign the ip address into the ipaddress's ip_address 
-        # function, means that the ip address is valid (but not sure yet what type)
-        ipaddress.ip_address(ipAddr)
+def isIP_valid(ipAddr):
+    regex = ['^(https?:\\/\\/)?',                            # protocol
+		'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|', # domain name
+		'((\\d{1,3}\\.){3}\\d{1,3}))',                      # OR ip (v4) address
+		'(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*',                  # port and path
+		'(\\?[;&a-z\\d%_.~+=-]*)?',                         # query string
+		'(\\#[-a-z\\d_]*)?$']
+    regexAll = "".join(regex)
+    matched = re.match(regexAll, ipAddr)
+    if matched:
         return True
-    except ValueError as e: # when the ip address is invalid
-        return False
+    return False

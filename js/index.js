@@ -46,8 +46,6 @@ async function getUrlRequest (url) {
 		}
 		throw new Error("Something went wrong"); 
 	}).catch(error => {
-		error.json().then(body=> {
-			console.log(body);
-		})
-	});
+		console.log(error);
+	})
 }

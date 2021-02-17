@@ -10,15 +10,17 @@ def homePage():
     return render_template("index.html")
 
 # when user inputted the domain that he/she would like to trace
-@app.route("/tracedInfo/<string:ipAddr>")
+@app.route("/tracedInfo/<string:ipAddr>", methods=["GET"])
 def tracedInfo(ipAddr):
     routesInfo = initiate.initiateTracing(ipAddr)
-    return routesInfo
+    print(routesInfo)
+    return (routesInfo["message"],routesInfo["status"]) #routesInfo.message,
 
-@app.route("/pingDomain/<string:domainName>")
+@app.route("/pingDomain/<string:domainName>", methods=["GET"])
 def pingDomain(domainName):
+    print(domainName)
     domainNameAlive = initiate.checkIfDomainIsAlive(domainName)
-    return domainNameAlive
+    return (domainNameAlive["message"], domainNameAlive["status"])
 
 @app.route('/js/<path:path>')
 def send_js(path): 
