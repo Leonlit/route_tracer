@@ -1,6 +1,6 @@
-import utilities as utilities
-import tracingDomain as trace
-from errorHandling import RequestType, RequestError
+import module.utilities as utilities
+import module.tracingDomain as trace
+from module.errorHandling import RequestType, RequestError
 
 def initiateTracing (ipAddr):
     #if (not trace.isIPValid(ipAddr) or 
@@ -10,8 +10,6 @@ def initiateTracing (ipAddr):
     # userIP = utilities.getUserIpInfo()
     # print(userIP)
     fullRouteData = trace.getTraceInfo(ipAddr)
-    print ("full route")
-    print(fullRouteData)
     if not fullRouteData:
         return False
         #error
@@ -24,5 +22,3 @@ def checkIfDomainIsAlive(domainIP):
         }
     )
     return req.getResponse()
-
-initiateTracing("google.com")

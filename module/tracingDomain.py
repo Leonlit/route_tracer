@@ -1,4 +1,4 @@
-import utilities as utilities
+import module.utilities as utilities
 import platform, subprocess, re, ipaddress
 
 def getTraceInfo (domainIP):
@@ -18,13 +18,14 @@ def traceDomain(domainIP):
         commandOutput = routeOutput.stdout.decode("utf-8")
         # now the results will be in list form
         filteredOutput = filterRouteOutput(commandOutput, osType)
-        filteredOutput.insert(0, domainIP)
         data = {
             "domain": domainIP,
             "routes": filteredOutput
         }
         utilities.saveDataIntoFile(f"{domainIP}", data)
-        return filteredOutput
+        print("done setting up data")
+        print(data)
+        return data
     except Exception as e:
         print(e,"Unexpected error occured! Could not trace route.")
     return False
@@ -40,6 +41,10 @@ def filterRouteOutput(output, osType):
             ips.append(match[0])
     if not ips:
         return False
+    if osType: # means its window
+        ips = ips[1:]
+    else:
+        ips.pop(0)
     return ips
 
 # if its not an public IP the system will just filter it out
@@ -66,7 +71,9 @@ def getIP_type(ipAddr):
 
 def isIPValid(ipAddr):
     try:
-        test = ipaddress.ip_address(ipAddr)
+        # if we can assign the ip address into the ipaddress's ip_address 
+        # function, means that the ip address is valid (but not sure yet what type)
+        ipaddress.ip_address(ipAddr)
         return True
-    except ValueError as e:
+    except ValueError as e: # when the ip address is invalid
         return False
