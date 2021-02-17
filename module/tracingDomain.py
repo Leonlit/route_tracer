@@ -6,7 +6,14 @@ def getTraceInfo (domainIP):
     return result
 
 def traceDomain(domainIP):
-    osType = 1 if platform.system().lower()=='windows' else 0
+    platformType = platform.system().lower()
+    if platformType =='windows':
+        osType = 1 
+    elif platformType == 'Linux':
+        osType = 0
+    else:
+        return False #not supported for MAC OS yet
+    
     commandtype = ('traceroute' ,'tracert')
     filename = f"./{domainIP}_route.txt"
     command = [commandtype[osType], domainIP]
