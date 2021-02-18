@@ -23,7 +23,15 @@ def pingDomain(domainName):
 
 @app.route('/js/<path:path>')
 def send_js(path): 
-    return send_from_directory('js', path)
+    return send_from_directory('assets/js', path)
+
+@app.route('/css/<path:path>')
+def send_css(path): 
+    return send_from_directory('assets/css', path)
+
+@app.route('/icon/<path:path>')
+def send_icon(path): 
+    return send_from_directory('assets/icon', path)
 
 if __name__ == '__main__':
        app.run(debug = True)

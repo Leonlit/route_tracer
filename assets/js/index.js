@@ -1,6 +1,7 @@
 'use strict'
 
-function initiate () {
+function initiate (event) {
+	event.preventDefault();
 	const domainName = document.getElementById("domainName").value;
 	console.log(domainName);
 	const domainPatternValidation = isUrlValid(domainName);

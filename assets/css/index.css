@@ -1,0 +1,60 @@
+body{
+    margin:0;
+    padding:0;
+    display: grid;
+}
+
+#inputField{
+    position: fixed;
+    display: grid;
+    grid-row: auto;
+    left:50%;
+    top:2%;
+    transform: translateX(-50%);
+    background-color: black;
+    box-shadow: 0px 0px 5px grey;
+    border-radius: 5px;
+    padding:0;
+}
+
+#inputField > * {
+    margin-left:2px;
+    padding:10px;
+}
+
+input[type="submit"]{
+	border: none;
+	font: inherit;
+	cursor: pointer;
+	outline: none;
+}
+
+.formInput {
+    font-size: 1.4em;
+    border: none;
+	outline: none;
+    background-color: transparent;
+    color:rgb(223, 223, 223);
+}
+
+.formBtn {
+    background-color: transparent;
+    color:rgb(223, 223, 223);
+}
+
+#searchIcon {
+    font-size:1.7em;
+    cursor: pointer;
+}
+
+#searchIcon:hover {
+    border-left:1px solid grey;
+}
+
+#mapid { 
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top:0;
+    left:0; 
+}
