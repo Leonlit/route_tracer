@@ -1,5 +1,4 @@
 #! /bin/python3
-
 from flask import Flask, render_template, send_from_directory
 import module.initiate as initiate
 
@@ -20,7 +19,7 @@ def tracedInfo(ipAddr):
 def pingDomain(domainName):
     print(domainName)
     domainNameAlive = initiate.checkIfDomainIsAlive(domainName)
-    return (domainNameAlive["message"], domainNameAlive["status"])
+    return (domainNameAlive, domainNameAlive["status"])
 
 @app.route('/js/<path:path>')
 def send_js(path): 

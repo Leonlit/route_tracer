@@ -1,6 +1,7 @@
-#!/usr/bin/env python
+import module.ipUtilities as ip_utilities
+import module.utilities as utilities
 from dotenv import load_dotenv
-import os, platform, subprocess
+import os, platform, subprocess, requests, json
 
 IP_INFO_KEY = os.getenv("IPINFO_API_KEY")
 IP_GEOLOCATION_KEY = os.getenv("IPGEOLOCATION_API_KEY")
@@ -10,23 +11,7 @@ def getIpAddress():
     with open(filename) as routeFile:
         routesList = routeFile.readlines()
     routesList = [ipAddr.rstrip() for ipAddr in routesList]
-    print(routesList)
     return routesList
-
-import requests, json
-def getIpInfoUsingAPI (IPs):
-    ipsInfo = []
-    for ip in IPs:
-        apiEndPoint = f"https://ipinfo.io/{ip}?token={IP_INFO_KEY}"
-        try:
-            ipInfo = getRequestData(apiEndPoint)
-            if ipInfo is not None:
-                ipsInfo.append(ipInfo)
-        except Exception as e:
-            print(e.__class__, "occurred. Continuing with the next entry.")
-    if ipsInfo is not None:
-        return ipsInfo
-    return False
 
 def getRequestData(url):
     try:
@@ -35,6 +20,34 @@ def getRequestData(url):
         return jsonData
     except requests.exceptions.HTTPError as e:
         print(f"Error when requesting data from API server{str(e)}")
+    return False
+
+def getIpsInfoUsingAPI (routes):
+    for index, ip in enumerate(routes["routes"]):
+        ipType = ip_utilities.getIP_type(ip)
+        obj = {
+            "ip": ip,
+            "info": {
+                "ipType": ipType
+            }
+        }
+        if not ip_utilities.isIP_public(ip):
+            routes["routes"][index] = obj
+        else:
+            print(IP_INFO_KEY)
+            apiEndPoint = f"https://ipinfo.io/{ip}?token={IP_INFO_KEY}"
+            try:
+                ipInfo = getRequestData(apiEndPoint)
+                print(apiEndPoint)
+                if ipInfo is not None:
+                    obj["info"] = obj["info"] | ipInfo
+                    routes["routes"][index] = obj
+            except Exception as e:
+                print(e.__class__, e, "occurred. Continuing with the next entry.")
+    if routes is not None:
+        utilities.saveDataIntoFile(routes["domain"]+"_info", routes)
+        print(routes)
+        return routes
     return False
 
 def getUserIpInfo():

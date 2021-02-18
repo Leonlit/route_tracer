@@ -20,6 +20,8 @@
     - ~window~
     - linux
     - mac ?
+- error handling
+- error logging using logging library from python
 - map integration
 - map drawing with route line
 - spam prevention
