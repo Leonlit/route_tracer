@@ -6,23 +6,34 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 		<link href="css/index.css" rel="stylesheet"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body>
 		<div id="mapid"></div>
 		<h1>Route Tracer - v0.5</h1>
 		<form id="inputField" onsubmit="initiate()">
 			<input required type="url" id="domainName" class="formInput" placeholder="www.google.com" autocomplete="off"/>
-			<div class="glyphicon glyphicon-search" id="searchIcon"></div>
+			<span class="glyphicon glyphicon-search" id="searchIcon"></span>
 		</form>
+		<div id="routeList">
+			<div class="route">
+				<div class="routeHeader routeItem">
+					<div><span class="lineColor" style="${Math.floor(Math.random() * colors)}"></span></div>
+					<div>${route["ip"]}</div>
+					<div>${route["ipType"]}</div>
+				</div>
+				<div class="routeBody routeItem">
+					${org}
+				</div>
+				<div class="routeFooter routeItem">
+					<div>${route["city"]}, ${route["region"]}, ${route["postal"]}, ${route["country"]}</div>
+					<div>${route["loc"]}</div>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
 
 <script src="/js/index.js"></script>
 <script src="/js/errorHandling.js"></script>
-<script>
-	let map = L.map('mapid').setView([51.505, -0.09], 13);
-	// Creating a Layer object
-	var layer = new L.TileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png');
-    // Adding layer to the map
-    map.addLayer(layer);
-</script>
+<script src="/js/animatingTrace.js"></script>

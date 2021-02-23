@@ -75,6 +75,3 @@ def pingDomainName(domainIP):
     except:
         return False
     return result == 0
-
-def constructJSON(dataList):
-    return json.dumps(dataList)
