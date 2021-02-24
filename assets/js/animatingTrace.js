@@ -6,43 +6,55 @@ const mapLayer = new L.TileLayer('https://tiles.stadiamaps.com/tiles/alidade_smo
 map.addLayer(mapLayer); */
 const colours = [
     "#00ffff", "#f0ffff", "#f5f5dc", "#0000ff", "#a52a2a", "#00ffff", "#00008b", "#008b8b", "#a9a9a9",
-    "#006400","#bdb76b","#8b008b","#556b2f","#ff8c00","#9932cc","#8b0000","#e9967a","#9400d3","#ff00ff","#ffd700",
-    "#008000","#4b0082","#f0e68c","#add8e6","#e0ffff","#90ee90","#d3d3d3","#ffb6c1","#ffffe0","#00ff00","#ff00ff",
-    "#800000","#000080","#808000","#ffa500","#ffc0cb","#800080","#800080","#ff0000","#c0c0c0","#ffff00"
+    "#006400","#bdb76b","#8b008b","#556b2f","#ff8c00","#9932cc","#8b0000","#e9967a","#9400d3","#ff00ff",
+    "#008000","#4b0082","#f0e68c","#add8e6","#e0ffff","#90ee90","#d3d3d3","#ffb6c1","#00ff00","#ff00ff",
+    "#800000","#000080","#808000","#ffa500","#ffc0cb","#800080","#800080","#ff0000","#c0c0c0"
 ];
 
-function generatingRoutesOnMap (data) {  
+let map;
+let public_coords;
+
+function generatingRoutesOnMap (data) {
+    public_coords = []
+    if (map != null) {
+        map.off();
+        map.remove();
+    }
+    map = L.map("map");
     document.getElementById("routeList").innerHTML = "";
     const routes= data["routes"]
     const generatedColours = generateRandomColours(routes.length, colours);
-    let map = L.map("map");
 	const mapLayer = new L.TileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png');
-
     map.addLayer(mapLayer);
+
     const centroidPoint = calculateCentriodPoint(routes)
-    const public_coords = []
-    console.log(centroidPoint);
     map.setView(centroidPoint, 2)
+    
     routes.forEach((route, index) => {
         const colour = generatedColours[index]
+        const icon = generateIconsForMarker(colour);
         appendingRouteToListing(route, colour)
+
         if (route["ipType"] == "private") {
             return;
         }
-        const icon = generateIconsForMarker(colour);
+        
         const coord = route["loc"].split(",")
                     .map(num=>parseFloat(num));
-        public_coords.push(coord)
-        console.log(public_coords);
+
+        public_coords.push([coord, route["ip"]])
+
         const marker = L.marker(
             coord,
             {icon: icon}
             ).addTo(map);
         marker.bindPopup(`<b>${route["city"]} ,${route["country"]}</b> [${route["loc"]}]`)
+
         if (public_coords.length > 1) {
-            const secondPoint = public_coords[public_coords.length-2]
-            const a = new L.LatLng(coord[0], coord[1])
-            const b = new L.LatLng(secondPoint[0], secondPoint[1])
+            const initiatedPoint = public_coords[public_coords.length-2]
+            const initiatedPointCoord = initiatedPoint[0];
+            const a = new L.LatLng(coord[0], coord[1]);
+            const b = new L.LatLng(initiatedPointCoord[0], initiatedPointCoord[1]);
             const pointList = [a, b];
             const line = new L.Polyline(pointList, {
                 color: colour,
@@ -50,12 +62,15 @@ function generatingRoutesOnMap (data) {
                 opacity: 0.5,
                 smoothFactor: 1
             });
+            popUp = `<b>${initiatedPoint[1]}</b>  to  <b>${route["ip"]}</b>`
             line.addTo(map);
+            line.bindPopup(popUp)
         }
         if (index == routes.length - 1 ) {
-            const initialPoint = public_coords[0]
-            const a = new L.LatLng(coord[0], coord[1])
-            const b = new L.LatLng(initialPoint[0], initialPoint[1])
+            const initiatedPoint = public_coords[0]
+            const initiatedPointCoord = initiatedPoint[0];
+            const a = new L.LatLng(coord[0], coord[1]);
+            const b = new L.LatLng(initiatedPointCoord[0], initiatedPointCoord[1]);
             const pointList = [a, b];
             const line = new L.Polyline(pointList, {
                 color: colour,
@@ -63,8 +78,10 @@ function generatingRoutesOnMap (data) {
                 opacity: 0.5,
                 smoothFactor: 1
             });
+            popUp = `<b>${route["ip"]}</b>  to  <b>${public_coords[0][1]}</b>`
             line.addTo(map);
-        }
+            line.bindPopup(popUp)
+        }       
     })
 }
 
@@ -92,7 +109,6 @@ function generateIconsForMarker(colour) {
 }
 
 function calculateCentriodPoint(routes){
-    console.log(routes);
     let centroid =[0, 0];
     for (route in routes) {
         if (point = route["loc"] == undefined) {
@@ -103,7 +119,6 @@ function calculateCentriodPoint(routes){
         centroid[0] += parseInt(coord[0]);
         centroid[1] += parseInt(coord[1]);
     }
-    console.log(centroid);
     centroid[0] = centroid[0]/(routes.length/2);
     centroid[1] = centroid[1]/(routes.length/2);
     return centroid;
@@ -124,22 +139,24 @@ function appendingRouteToListing(route, colour){
     const org = (route["hostname"] | "") + route["org"]
     if (route["ipType"] == "public") {
         item = `
-            <div class="route map_container" style="border: 2px solid ${colour};">
+            <fieldset class="route map_container" style="border: 2px solid ${colour};">
+                <legend>${public_coords.length + 1}</legend>
                 <span>${route["ip"]}</span>
                 <span>${route["ipType"]}</span>
                 <span>${route["loc"]}</span>
                 <span>${route["city"]}, ${route["region"]}, ${route["postal"]}</span>
                 <span>${route["country"]}</span>
                 <span>${org}</span>
-            </div>
         `
+        if (route["hostname"] != undefined) {
+            item += `<span>${route["hostname"]}</span>`
+        }
     }else {
         item = `
-            <div class="route map_container" style="border: 2px solid grey;">
+            <fieldset class="route map_container" style="border: 2px solid grey;">
                 <span>${route["ip"]}</span>
                 <span>${route["ipType"]}</span>
-            </div>
         `
     }
-    container.innerHTML += item;
+    container.innerHTML += item + "</fieldset>";
 }

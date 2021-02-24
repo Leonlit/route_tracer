@@ -1,6 +1,6 @@
 'use strict'
 
-function initiate (event) {
+async function initiate () {
 	const dummyData = {
 		"domain": "google.com",
 		"routes": [
@@ -78,10 +78,8 @@ function initiate (event) {
 			}
 		]
 	};
-	generatingRoutesOnMap(dummyData);
-
-	/* event.preventDefault();
-	const domainName = document.getElementById("domainName").value;
+	
+	/* const domainName = document.getElementById("domainName").value;
 	console.log(domainName);
 	const domainPatternValidation = isUrlValid(domainName);
 	if (!domainPatternValidation) {
@@ -93,8 +91,10 @@ function initiate (event) {
 		showErrorPopUp(1);
 		return
 	}
-	const getJsonData = getTracedInfo(domainName)
-	console.log(getJsonData); */
+	getTracedInfo(domainName).then(data=>{ */
+	//	console.log(data);
+		generatingRoutesOnMap(dummyData);
+	//})
 }
 
 function isUrlValid(str) {
@@ -110,13 +110,13 @@ function isUrlValid(str) {
 async function isDomainAlive(domainName) {
 	const url = `/pingDomain/${domainName}`
 	const canPingDomain = await getUrlRequest(url);
-	console.log(canPingDomain);
+	return canPingDomain;
 }
 
 async function getTracedInfo (domainName) {
 	const url = `/tracedInfo/${domainName}`;
 	const response = await getUrlRequest(url);
-	console.log(response);
+	return response;
 }
 
 async function getUrlRequest (url) {
