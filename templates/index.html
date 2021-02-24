@@ -9,15 +9,28 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body>
+		<noscript>Please enable Javascript for this website. It needs Javascript to perform its magic!</noscript>
 		<div id="map"></div>
-		<h1>Route Tracer - v0.5</h1>
-		<form id="inputField" onsubmit="initiate()">
+		<form id="inputField" class="map_container" onsubmit="initiate()">
 			<input required type="url" id="domainName" class="formInput" placeholder="www.google.com" autocomplete="off"/>
 			<span class="glyphicon glyphicon-search" id="searchIcon" onclick="initiate()"></span>
-		</form>
-		<div id="routeList"></div>
+		</form>	
+		<div id="routeContainer" class="map_container">
+			<div id="openCloseList" onclick="openCloseRouteList()"></div>
+			<div id="routeList" class="map_container"><h3 style="text-align: center;">None</h3></div>
+		</div>
+		<footer class="map_container">
+			<span class="footerHeader">
+				<h2><a>Route Tracer</a></h2>
+				<h5>v1.0</h5>
+			</span>
+			<span><a>source code</a></span>
+			<span></span>
+		</footer>
 	</body>
 </html>
+
+<script src="/js/animation.js"></script>
 <script src="/js/animatingTrace.js"></script>
 <script src="/js/index.js"></script>
 <script src="/js/errorHandling.js"></script>
