@@ -9,31 +9,15 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body>
-		<div id="mapid"></div>
+		<div id="map"></div>
 		<h1>Route Tracer - v0.5</h1>
 		<form id="inputField" onsubmit="initiate()">
 			<input required type="url" id="domainName" class="formInput" placeholder="www.google.com" autocomplete="off"/>
-			<span class="glyphicon glyphicon-search" id="searchIcon"></span>
+			<span class="glyphicon glyphicon-search" id="searchIcon" onclick="initiate()"></span>
 		</form>
-		<div id="routeList">
-			<div class="route">
-				<div class="routeHeader routeItem">
-					<div><span class="lineColor" style="${Math.floor(Math.random() * colors)}"></span></div>
-					<div>${route["ip"]}</div>
-					<div>${route["ipType"]}</div>
-				</div>
-				<div class="routeBody routeItem">
-					${org}
-				</div>
-				<div class="routeFooter routeItem">
-					<div>${route["city"]}, ${route["region"]}, ${route["postal"]}, ${route["country"]}</div>
-					<div>${route["loc"]}</div>
-				</div>
-			</div>
-		</div>
+		<div id="routeList"></div>
 	</body>
 </html>
-
+<script src="/js/animatingTrace.js"></script>
 <script src="/js/index.js"></script>
 <script src="/js/errorHandling.js"></script>
-<script src="/js/animatingTrace.js"></script>

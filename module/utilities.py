@@ -26,13 +26,10 @@ def getIpsInfoUsingAPI (routes):
     for index, ip in enumerate(routes["routes"]):
         ipType = ip_utilities.getIP_type(ip)
         obj = {
-            "ip": ip,
-            "info": {
-                "ipType": ipType
-            }
+            "ipType": ipType
         }
         if not ip_utilities.isIP_public(ip):
-            routes["routes"][index] = obj
+            obj["ip"] = ip
         else:
             print(IP_INFO_KEY)
             apiEndPoint = f"https://ipinfo.io/{ip}?token={IP_INFO_KEY}"
@@ -40,14 +37,16 @@ def getIpsInfoUsingAPI (routes):
                 ipInfo = getRequestData(apiEndPoint)
                 print(apiEndPoint)
                 if ipInfo is not None:
-                    obj["info"] = obj["info"] | ipInfo
-                    routes["routes"][index] = obj
+                    obj = obj | ipInfo # combining the data
             except Exception as e:
                 print(e.__class__, e, "occurred. Continuing with the next entry.")
+        routes["routes"][index] = obj
+
     if routes is not None:
         utilities.saveDataIntoFile(routes["domain"]+"_info", routes)
         print(routes)
         return routes
+        
     return False
 
 def getUserIpInfo():

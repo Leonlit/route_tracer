@@ -52,7 +52,7 @@ input[type="submit"]{
     color:white;
 }
 
-#mapid { 
+#map { 
     height: 100%;
     width: 100%;
     position: fixed;
@@ -60,41 +60,47 @@ input[type="submit"]{
     left:0; 
 }
 
+.leaflet-touch .leaflet-bar a {
+    background-color: black;
+    color: grey;
+    box-shadow: 0px 0px 3px grey;
+}
+
+.leaflet-touch .leaflet-bar a:hover {
+    color: white;
+    box-shadow: 0px 0px 3px white;
+  }
+
 #routeList {
+    background-color: black;
+    overflow-y: auto;
+    opacity: 0.7;
     position: fixed;
     padding:10px;
     right:0;
     top:0;
     width:35vw;
-    border: 1px solid white;
+    box-shadow: 0px 0px 5px grey;
     color: white;
     height:100%;
 }
 
 .route {
+    font-size:1.1em;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
     align-content: space-around;
     padding: 10px;
+    border-radius: 5px;
     border: 1px solid grey;
     box-shadow: 0px 0px 3px grey;
+    margin-bottom: 10px;
 }
 
-.routeItem {
-    display: flex;
-    flex-direction:row;
-}
-
-.route > .routeHeader {
-    justify-content: start;
-    flex: 1 1 auto;
-}
-
-.route > .routeBody {
-    justify-content:space-evenly;
-}
-
-.route > .routeFooter {
-    justify-content: space-around;
+.route > *{
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+    box-shadow: 0px 0px 5px grey;
 }
