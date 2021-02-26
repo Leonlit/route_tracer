@@ -38,7 +38,7 @@ function generatingRoutesOnMap (data) {
             return;
         }
 
-        const icon = generateIconsForMarker(index, colour);
+        const icon = generateIconsForMarker(public_coords.length + 1, colour);
         const coord = route["loc"].split(",")
                     .map(num=>parseFloat(num));
         public_coords.push([coord, route["ip"]])
@@ -74,15 +74,6 @@ function generateEdges (coord, colour, toIP) {
 function generateIconsForMarker(num, colour) {
     const markerHtmlStyles = `
         background-color: ${colour};
-        width: 3rem;
-        height: 3rem;
-        display: block;
-        left: -1.5rem;
-        top: -1.5rem;
-        position: relative;
-        border-radius: 3rem 3rem 0;
-        transform: rotate(45deg);
-        border: 1px solid #FFFFFF
     `
 
     return L.divIcon({
@@ -90,7 +81,7 @@ function generateIconsForMarker(num, colour) {
         iconAnchor: [0, 24],
         labelAnchor: [-6, 0],
         popupAnchor: [0, -36],
-        html: `<span style="${markerHtmlStyles}">${num}</span>`
+        html: `<span class="customeMarker" style="${markerHtmlStyles}"><div class="markerNum">${num}</div></span>`
     })
 }
 
@@ -118,6 +109,10 @@ function generateRandomColours(len, arr) {
         arr.splice(j,1);
     }
     return colour
+}
+
+function generateEdgeList (from, to, colour) {
+
 }
 
 function appendingRouteToListing(route, colour){
