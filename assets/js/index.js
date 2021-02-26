@@ -79,7 +79,7 @@ async function initiate () {
 		]
 	};
 	
-	/* const domainName = document.getElementById("domainName").value;
+	const domainName = document.getElementById("domainName").value;
 	console.log(domainName);
 	const domainPatternValidation = isUrlValid(domainName);
 	if (!domainPatternValidation) {
@@ -91,10 +91,10 @@ async function initiate () {
 		showErrorPopUp(1);
 		return
 	}
-	getTracedInfo(domainName).then(data=>{ */
-	//	console.log(data);
-		generatingRoutesOnMap(dummyData);
-	//})
+	getTracedInfo(domainName).then(data=>{ 
+		console.log(data);
+		generatingRoutesOnMap(data);
+	})
 }
 
 function isUrlValid(str) {

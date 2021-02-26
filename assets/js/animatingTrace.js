@@ -32,60 +32,46 @@ function generatingRoutesOnMap (data) {
     
     routes.forEach((route, index) => {
         const colour = generatedColours[index]
-        const icon = generateIconsForMarker(colour);
         appendingRouteToListing(route, colour)
 
         if (route["ipType"] == "private") {
             return;
         }
-        
+
+        const icon = generateIconsForMarker(index, colour);
         const coord = route["loc"].split(",")
                     .map(num=>parseFloat(num));
-
         public_coords.push([coord, route["ip"]])
+        generateEdges(coord, colour, route["ip"])
 
         const marker = L.marker(
             coord,
             {icon: icon}
             ).addTo(map);
-        marker.bindPopup(`<b>${route["city"]} ,${route["country"]}</b> [${route["loc"]}]`)
-
-        if (public_coords.length > 1) {
-            const initiatedPoint = public_coords[public_coords.length-2]
-            const initiatedPointCoord = initiatedPoint[0];
-            const a = new L.LatLng(coord[0], coord[1]);
-            const b = new L.LatLng(initiatedPointCoord[0], initiatedPointCoord[1]);
-            const pointList = [a, b];
-            const line = new L.Polyline(pointList, {
-                color: colour,
-                weight: 3,
-                opacity: 0.5,
-                smoothFactor: 1
-            });
-            popUp = `<b>${initiatedPoint[1]}</b>  to  <b>${route["ip"]}</b>`
-            line.addTo(map);
-            line.bindPopup(popUp)
-        }
-        if (index == routes.length - 1 ) {
-            const initiatedPoint = public_coords[0]
-            const initiatedPointCoord = initiatedPoint[0];
-            const a = new L.LatLng(coord[0], coord[1]);
-            const b = new L.LatLng(initiatedPointCoord[0], initiatedPointCoord[1]);
-            const pointList = [a, b];
-            const line = new L.Polyline(pointList, {
-                color: colour,
-                weight: 3,
-                opacity: 0.5,
-                smoothFactor: 1
-            });
-            popUp = `<b>${route["ip"]}</b>  to  <b>${public_coords[0][1]}</b>`
-            line.addTo(map);
-            line.bindPopup(popUp)
-        }       
+        marker.bindPopup(`<b>${route["city"]} ,${route["country"]}</b> [${route["loc"]}]`)     
     })
 }
 
-function generateIconsForMarker(colour) {
+function generateEdges (coord, colour, toIP) {
+    if (public_coords.length > 1) {
+        const initiatedPoint = public_coords[public_coords.length-2]
+        const initiatedPointCoord = initiatedPoint[0];
+        const a = new L.LatLng(coord[0], coord[1]);
+        const b = new L.LatLng(initiatedPointCoord[0], initiatedPointCoord[1]);
+        const pointList = [a, b];
+        const line = new L.Polyline(pointList, {
+            color: colour,
+            weight: 3,
+            opacity: 0.5,
+            smoothFactor: 1
+        });
+        popUp = `<b>${initiatedPoint[1]}</b>  to  <b>${toIP}</b>`
+        line.addTo(map);
+        line.bindPopup(popUp)
+    }
+}
+
+function generateIconsForMarker(num, colour) {
     const markerHtmlStyles = `
         background-color: ${colour};
         width: 3rem;
@@ -104,7 +90,7 @@ function generateIconsForMarker(colour) {
         iconAnchor: [0, 24],
         labelAnchor: [-6, 0],
         popupAnchor: [0, -36],
-        html: `<span style="${markerHtmlStyles}" />`
+        html: `<span style="${markerHtmlStyles}">${num}</span>`
     })
 }
 
