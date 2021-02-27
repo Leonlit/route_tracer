@@ -12,7 +12,7 @@ const colours = [
 ];
 
 let map;
-let public_coords;
+let public_coords; // [coord, routeObj]
 
 function generatingRoutesOnMap (data) {
     public_coords = []
@@ -41,7 +41,8 @@ function generatingRoutesOnMap (data) {
         const icon = generateIconsForMarker(public_coords.length + 1, colour);
         const coord = route["loc"].split(",")
                     .map(num=>parseFloat(num));
-        public_coords.push([coord, route["ip"]])
+        public_coords.push([coord, route])
+        appendEdgeToList(route, colour)
         generateEdges(coord, colour, route["ip"])
 
         const marker = L.marker(
@@ -65,7 +66,7 @@ function generateEdges (coord, colour, toIP) {
             opacity: 0.5,
             smoothFactor: 1
         });
-        popUp = `<b>${initiatedPoint[1]}</b>  to  <b>${toIP}</b>`
+        popUp = `<b>${initiatedPoint[1]["ip"]}</b>  to  <b>${toIP}</b>`
         line.addTo(map);
         line.bindPopup(popUp)
     }
@@ -111,8 +112,36 @@ function generateRandomColours(len, arr) {
     return colour
 }
 
-function generateEdgeList (from, to, colour) {
-
+function appendEdgeToList (to) {
+    const container = document.getElementById("routeEdges")
+    if (public_coords.length > 1) {
+        const fromIndex = public_coords.length-2
+        const from = public_coords[fromIndex][1];
+        const elements = `
+            <div class="edgesInfo">
+                <div class="edgesHeader">${fromIndex + 1} |------> ${fromIndex + 2}</div>
+                <div class="edgesWrapper">
+                    <span class="edgesFrom">
+                        <span>From</span>
+                        <span>${from["city"]}</span>
+                        <span>${from["region"]}</span>
+                        <span>${from["country"]}</span>
+                        <span>${from["loc"]}</span>
+                        <span>${from["ip"]}</span>
+                    </span>
+                    <span class="edgesTo">
+                        <span>To</span>
+                        <span>${to["city"]}</span>
+                        <span>${to["region"]}</span>
+                        <span>${to["country"]}</span>
+                        <span>${to["loc"]}</span>
+                        <span>${to["ip"]}</span>
+                    </span>
+                </div>
+            </div>
+        `;
+        container.innerHTML += elements;
+    }
 }
 
 function appendingRouteToListing(route, colour){

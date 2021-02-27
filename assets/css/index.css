@@ -116,18 +116,42 @@ input[type="submit"]{
 }
 
 #routeEdges {
-    display: grid;
-    grid-template: "header header" 100%
-        
-    ;
+    height:auto;
     width: 100%;
     font-size:1.2em;
     box-shadow: 0px 0px 3px grey;
     margin-bottom: 5vh;
+    text-align: center;
 }
 
 .edgesInfo {
+    margin-bottom: 2vh;
+    border-bottom: 1px solid grey;
+    border-top: 1px solid grey;
+}
+
+#routeEdges > .edgesInfo {
     color: white;
+}
+
+.edgesHeader {
+    padding:2%;
+}
+
+.edgesInfo > .edgesWrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.edgesInfo > .edgesWrapper > span {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.edgesWrapper > span > span {
+    box-shadow:0px 0px 3px grey;
+    padding:2%;
 }
 
 #routeList {
@@ -157,7 +181,7 @@ input[type="submit"]{
     padding:0;
     margin:0;
     width:auto;
-    
+    color: white;
 }
 
 .route span {
