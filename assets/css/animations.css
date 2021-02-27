@@ -1,8 +1,8 @@
 @keyframes marker_blink {
     0% {
-        color:yellow !important;
+        color:white;
     }
-    100% {
-        color: white !important;
+    50% {
+        color: red;
     }
 }

@@ -82,7 +82,7 @@ function generateIconsForMarker(num, colour) {
         iconAnchor: [0, 24],
         labelAnchor: [-6, 0],
         popupAnchor: [0, -36],
-        html: `<span id="marker_${num}" class="customeMarker" style="${markerHtmlStyles}"><div class="markerNum"><a href="#route_${num}" onclick="openRouteList()">${num}</a></div></span>`
+        html: `<a id="marker_${num}" class="customeMarker" style="${markerHtmlStyles}" href="#route_${num}" onclick="openRouteList()"><div class="markerNum">${num}</div></a>`
     })
 }
 
@@ -174,11 +174,10 @@ function appendingRouteToListing(route, colour){
 
 function focusMarker (markerNum) {
     const container = document.getElementById(`marker_${markerNum}`);
-    const wrapper = container.getElementsByClassName("markerNum")[0];
-    const element = wrapper.getElementsByTagName("a")[0];
+    const element = container.getElementsByTagName("div")[0];
 
     element.classList.add("markerBlinking");
     setTimeout(()=>{
         element.classList.remove("markerBlinking");
-    }, 6000)
+    }, 7000)
 }
