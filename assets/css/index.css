@@ -112,6 +112,7 @@ input[type="submit"]{
     font-weight: 900;
     padding:20px;
     margin:0;
+    margin-bottom:20px;
     text-align: center;
 }
 
@@ -127,7 +128,6 @@ input[type="submit"]{
 .edgesInfo {
     margin-bottom: 2vh;
     border-bottom: 1px solid grey;
-    border-top: 1px solid grey;
 }
 
 #routeEdges > .edgesInfo {
@@ -136,6 +136,15 @@ input[type="submit"]{
 
 .edgesHeader {
     padding:2%;
+    font-size: 1.2em;
+    font-weight: 900;
+    transition: 0.3s;
+    cursor:pointer;
+}
+
+.edgesHeader:hover {
+    box-shadow:0px 0px 5px white;
+    font-size: 1.4em;
 }
 
 .edgesInfo > .edgesWrapper {
@@ -168,6 +177,12 @@ input[type="submit"]{
     border-radius: 5px;
     border: 1px solid grey;
     margin-bottom: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.route:hover {
+    box-shadow: 0px 0px 5px white;
 }
 
 .route > *{
@@ -206,9 +221,20 @@ input[type="submit"]{
     position: relative;
     font-weight: 900;
     left: 0.5em;
-    color: white;
     top: -0.2em;
     text-shadow: 0px 0px 3px black;
+}
+
+.markerBlinking {
+    animation: marker_blink 2s linear;
+}
+
+.markerNum a {
+    color: white !important;
+}
+
+.markerNum a:hover {
+    text-shadow: 0px 0px 5px black;
 }
 
 footer {

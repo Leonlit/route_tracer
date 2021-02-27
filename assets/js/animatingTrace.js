@@ -82,7 +82,7 @@ function generateIconsForMarker(num, colour) {
         iconAnchor: [0, 24],
         labelAnchor: [-6, 0],
         popupAnchor: [0, -36],
-        html: `<span class="customeMarker" style="${markerHtmlStyles}"><div class="markerNum">${num}</div></span>`
+        html: `<span id="marker_${num}" class="customeMarker" style="${markerHtmlStyles}"><div class="markerNum"><a href="#route_${num}" onclick="openRouteList()">${num}</a></div></span>`
     })
 }
 
@@ -148,9 +148,10 @@ function appendingRouteToListing(route, colour){
     const container = document.getElementById("routeList");
     const org = (route["hostname"] | "") + route["org"]
     if (route["ipType"] == "public") {
+        const currIndex = public_coords.length + 1;
         item = `
-            <fieldset class="route map_container" style="border: 2px solid ${colour};">
-                <legend>${public_coords.length + 1}</legend>
+            <fieldset id="route_${currIndex}" class="route map_container" style="border: 2px solid ${colour};" onclick="focusMarker(${currIndex})">
+                <legend>${currIndex}</legend>
                 <span>${route["ip"]}</span>
                 <span>${route["ipType"]}</span>
                 <span>${route["loc"]}</span>
@@ -169,4 +170,15 @@ function appendingRouteToListing(route, colour){
         `
     }
     container.innerHTML += item + "</fieldset>";
+}
+
+function focusMarker (markerNum) {
+    const container = document.getElementById(`marker_${markerNum}`);
+    const wrapper = container.getElementsByClassName("markerNum")[0];
+    const element = wrapper.getElementsByTagName("a")[0];
+
+    element.classList.add("markerBlinking");
+    setTimeout(()=>{
+        element.classList.remove("markerBlinking");
+    }, 6000)
 }

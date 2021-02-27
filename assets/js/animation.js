@@ -1,14 +1,22 @@
 'use strict'
 let isRouteListOpen = false;
 
+const routeContainer = document.getElementById("routeContainer");
 function openCloseRouteList() {
-    const routeContainer = document.getElementById("routeContainer");
     if (!isRouteListOpen) {
-        routeContainer.style.top = "0"
-        isRouteListOpen = true
+        openRouteList();
     }else {
-        routeContainer.style.top = "97%"
-        isRouteListOpen = false;
+        closeOpenList();   
     }
 
+}
+
+function openRouteList () {
+    routeContainer.style.top = "0";
+    isRouteListOpen = true;
+}
+
+function closRouteList(){
+    routeContainer.style.top = "97%";
+    isRouteListOpen = false;
 }
