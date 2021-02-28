@@ -5,6 +5,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		<link href="css/animations.css" rel="stylesheet"/>
 		<link href="css/index.css" rel="stylesheet"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
@@ -16,8 +17,13 @@
 			<span class="glyphicon glyphicon-search" id="searchIcon" onclick="initiate()"></span>
 		</form>	
 		<div id="routeContainer" class="map_container">
-			<div id="openCloseList" onclick="openCloseRouteList()"></div>
-			<div id="routeList" class="map_container"><h3 style="text-align: center;">None</h3></div>
+			<div id="openCloseList" class="map_container" onclick="openCloseRouteList()"></div>
+			<div id="routeWrapper">
+				<h3 class="map_container">Route Connections</h3>
+				<div id="routeEdges"></div>
+				<h3 class="map_container">Route List</h3>
+				<div id="routeList"><h3 style="text-align: center;">None</h3></div>
+			</div>
 		</div>
 		<footer class="map_container">
 			<span class="footerHeader">

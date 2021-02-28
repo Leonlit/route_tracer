@@ -1,6 +1,6 @@
 'use strict'
 
-function initiate (event) {
+function initiate () {
 	const dummyData = {
 		"domain": "google.com",
 		"routes": [
@@ -14,7 +14,7 @@ function initiate (event) {
 				"city": "Seremban",
 				"region": "Negeri Sembilan",
 				"country": "MY",
-				"loc": "2.7297,101.9381",
+				"loc": [2.7297,101.9381],
 				"org": "AS4788 TM Net, Internet Service Provider",
 				"postal": "70600",
 				"timezone": "Asia/Kuala_Lumpur"
@@ -37,7 +37,7 @@ function initiate (event) {
 				"city": "Mountain View",
 				"region": "California",
 				"country": "US",
-				"loc": "37.4056,-122.0775",
+				"loc": [37.4056,-122.0775],
 				"org": "AS15169 Google LLC",
 				"postal": "94043",
 				"timezone": "America/Los_Angeles"
@@ -48,7 +48,7 @@ function initiate (event) {
 				"city": "Mountain View",
 				"region": "California",
 				"country": "US",
-				"loc": "37.4056,-122.0775",
+				"loc": [37.4056,-122.0775],
 				"org": "AS15169 Google LLC",
 				"postal": "94043",
 				"timezone": "America/Los_Angeles"
@@ -59,7 +59,7 @@ function initiate (event) {
 				"city": "Mountain View",
 				"region": "California",
 				"country": "US",
-				"loc": "37.4056,-122.0775",
+				"loc": [37.4056,-122.0775],
 				"org": "AS15169 Google LLC",
 				"postal": "94043",
 				"timezone": "America/Los_Angeles"
@@ -71,18 +71,15 @@ function initiate (event) {
 				"city": "Bangkok",
 				"region": "Bangkok",
 				"country": "TH",
-				"loc": "13.7540,100.5014",
+				"loc": [13.7540,100.5014],
 				"org": "AS15169 Google LLC",
 				"postal": "10100",
 				"timezone": "Asia/Bangkok"
 			}
 		]
 	};
-	generatingRoutesOnMap(dummyData);
-
-	/* event.preventDefault();
-	const domainName = document.getElementById("domainName").value;
-	console.log(domainName);
+	
+	/* const domainName = document.getElementById("domainName").value;
 	const domainPatternValidation = isUrlValid(domainName);
 	if (!domainPatternValidation) {
 		showErrorPopUp(0);
@@ -93,8 +90,10 @@ function initiate (event) {
 		showErrorPopUp(1);
 		return
 	}
-	const getJsonData = getTracedInfo(domainName)
-	console.log(getJsonData); */
+	getTracedInfo(domainName).then(data=>{ 
+		console.log(data); */
+		generatingRoutesOnMap(dummyData);
+	//})
 }
 
 function isUrlValid(str) {
@@ -110,13 +109,13 @@ function isUrlValid(str) {
 async function isDomainAlive(domainName) {
 	const url = `/pingDomain/${domainName}`
 	const canPingDomain = await getUrlRequest(url);
-	console.log(canPingDomain);
+	return canPingDomain;
 }
 
 async function getTracedInfo (domainName) {
 	const url = `/tracedInfo/${domainName}`;
 	const response = await getUrlRequest(url);
-	console.log(response);
+	return response;
 }
 
 async function getUrlRequest (url) {

@@ -87,8 +87,10 @@ input[type="submit"]{
 #openCloseList {
     width: 100%;
     height: 3%;
-    background-color: rgba(0, 0, 0, 0.8);
+    border-bottom: 1px solid grey;
+    background-color: rgb(0, 0, 0);
     cursor:pointer;
+    position:inherit;
 }
 
 .map_container {
@@ -101,14 +103,75 @@ input[type="submit"]{
     top:97%;
     width:35vw;
     color: white;
-    height:100%;
+    height:100vh;
     transition: 0.5s;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+#routeWrapper {
+    margin-top: 3vh;
+    height: 97vh;
     overflow-y: auto;
     scroll-behavior: smooth;
 }
 
+#routeContainer > div > h3 {
+    font-weight: 900;
+    padding:20px;
+    margin:0;
+    margin-bottom:20px;
+    text-align: center;
+}
+
+#routeEdges {
+    margin-top: 3%;
+    height:auto;
+    width: 100%;
+    font-size:1.2em;
+    box-shadow: 0px 0px 3px grey;
+    margin-bottom: 5vh;
+    text-align: center;
+}
+
+.edgesInfo {
+    margin-bottom: 2vh;
+    border-bottom: 1px solid grey;
+}
+
+#routeEdges > .edgesInfo {
+    color: white;
+}
+
+.edgesHeader {
+    padding:2%;
+    font-size: 1.2em;
+    font-weight: 900;
+    transition: 0.3s;
+    cursor:pointer;
+}
+
+.edgesHeader:hover {
+    box-shadow:0px 0px 5px white;
+    font-size: 1.4em;
+}
+
+.edgesInfo > .edgesWrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.edgesInfo > .edgesWrapper > span {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.edgesWrapper > span > span {
+    box-shadow:0px 0px 3px grey;
+    padding:2%;
+}
+
 #routeList {
-    background-color: rgba(0, 0, 0, 0.8);
     padding:10px;
 }
 
@@ -122,6 +185,12 @@ input[type="submit"]{
     border-radius: 5px;
     border: 1px solid grey;
     margin-bottom: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.route:hover {
+    box-shadow: 0px 0px 5px white;
 }
 
 .route > *{
@@ -130,8 +199,51 @@ input[type="submit"]{
     margin: 5px;
 }
 
+.route > legend {
+    border:none;
+    padding:0;
+    margin:0;
+    width:auto;
+    color: white;
+}
+
 .route span {
     box-shadow: 0px 0px 5px grey;
+}
+
+.customeMarker {
+    width: 3rem;
+    height: 3rem;
+    display: block;
+    left: -1.5rem;
+    top: -1.5rem;
+    position: relative;
+    border-radius: 3rem 3rem 0;
+    transform: rotate(45deg);
+    border: 1px solid #FFFFFF;
+}
+
+.customeMarker:hover {
+    text-decoration: none;
+}
+
+.markerNum {
+    transform: rotate(-45deg);
+    font-size: 16px;
+    position: relative;
+    font-weight: 900;
+    left: 0.45em;
+    top: -0.2em;
+    text-shadow: 0px 0px 3px black;
+    color: white;
+}
+
+.markerBlinking {
+    animation: marker_blink 1.5s 5 ease-in-out;
+}
+
+.markerNum:hover {
+    text-shadow: 0px 0px 5px black;
 }
 
 footer {
