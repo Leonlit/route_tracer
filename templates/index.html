@@ -17,11 +17,13 @@
 			<span class="glyphicon glyphicon-search" id="searchIcon" onclick="initiate()"></span>
 		</form>	
 		<div id="routeContainer" class="map_container">
-			<div id="openCloseList" onclick="openCloseRouteList()"></div>
-			<h3 class="map_container">Route Connections</h3>
-			<div id="routeEdges"></div>
-			<h3 class="map_container">Route List</h3>
-			<div id="routeList"><h3 style="text-align: center;">None</h3></div>
+			<div id="openCloseList" class="map_container" onclick="openCloseRouteList()"></div>
+			<div id="routeWrapper">
+				<h3 class="map_container">Route Connections</h3>
+				<div id="routeEdges"></div>
+				<h3 class="map_container">Route List</h3>
+				<div id="routeList"><h3 style="text-align: center;">None</h3></div>
+			</div>
 		</div>
 		<footer class="map_container">
 			<span class="footerHeader">

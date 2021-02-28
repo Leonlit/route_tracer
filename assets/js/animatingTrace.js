@@ -23,16 +23,15 @@ function generatingRoutesOnMap (data) {
     document.getElementById("routeList").innerHTML = "";
     const routes= data["routes"]
     const generatedColours = generateRandomColours(routes.length, colours);
-	const mapLayer = new L.TileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png');
+	const mapLayer = new L.TileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {noWrap: true});
     
     const centroidPoint = calculateCentriodPoint(routes)
     const boundary = generatingBoundary(routes);
     
     map = L.map("map", {
+        minZoom: 3,
         maxBoundsViscosity: 1.0,
         maxBounds: boundary,
-        maxZoom: 15,
-        minZoom:0
     });
     map.on('drag', function() {
         map.panInsideBounds(boundary, { animate: false });
