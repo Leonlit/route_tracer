@@ -2,84 +2,174 @@
 
 function initiate () {
 	const dummyData = {
-		"domain": "google.com",
+		"domain": "github.com",
 		"routes": [
 			{
-				"ip": "192.168.68.1",
-				"ipType": "private"
+				"ipType": "private",
+				"ip": "192.168.68.1"
 			},
 			{
 				"ipType": "public",
-				"ip": "175.140.89.254",
+				"ip": "60.53.77.254",
 				"city": "Seremban",
 				"region": "Negeri Sembilan",
 				"country": "MY",
-				"loc": [2.7297,101.9381],
+				"loc": [
+					2.7297,
+					101.9381
+				],
 				"org": "AS4788 TM Net, Internet Service Provider",
 				"postal": "70600",
 				"timezone": "Asia/Kuala_Lumpur"
 			},
 			{
-				"ip": "10.55.106.75",
-				"ipType": "private"
+				"ipType": "private",
+				"ip": "10.55.106.75"
 			},
 			{
-				"ip": "10.55.39.154",
-				"ipType": "private"
+				"ipType": "private",
+				"ip": "10.55.100.207"
 			},
 			{
-				"ip": "10.55.48.58",
-				"ipType": "private"
+				"ipType": "private",
+				"ip": "10.55.48.58"
 			},
 			{
 				"ipType": "public",
-				"ip": "72.14.198.56",
-				"city": "Mountain View",
-				"region": "California",
+				"ip": "52.46.166.54",
+				"city": "Virginia Beach",
+				"region": "Virginia",
 				"country": "US",
-				"loc": [37.4056,-122.0775],
-				"org": "AS15169 Google LLC",
-				"postal": "94043",
-				"timezone": "America/Los_Angeles"
+				"loc": [
+					36.8348,
+					-76.0961
+				],
+				"postal": "23452",
+				"timezone": "America/New_York"
 			},
 			{
 				"ipType": "public",
-				"ip": "108.170.250.1",
-				"city": "Mountain View",
-				"region": "California",
+				"ip": "52.93.63.90",
+				"city": "Singapore",
+				"region": "Singapore",
+				"country": "SG",
+				"loc": [
+					1.2897,
+					103.8501
+				],
+				"postal": "048508",
+				"timezone": "Asia/Singapore"
+			},
+			{
+				"ipType": "public",
+				"ip": "52.93.63.99",
+				"city": "Singapore",
+				"region": "Singapore",
+				"country": "SG",
+				"loc": [
+					1.2897,
+					103.8501
+				],
+				"postal": "048508",
+				"timezone": "Asia/Singapore"
+			},
+			{
+				"ipType": "public",
+				"ip": "150.222.240.83",
+				"city": "New York City",
+				"region": "New York",
 				"country": "US",
-				"loc": [37.4056,-122.0775],
-				"org": "AS15169 Google LLC",
-				"postal": "94043",
-				"timezone": "America/Los_Angeles"
+				"loc": [
+					40.7143,
+					-74.006
+				],
+				"postal": "10004",
+				"timezone": "America/New_York"
 			},
 			{
 				"ipType": "public",
-				"ip": "108.170.230.129",
-				"city": "Mountain View",
-				"region": "California",
-				"country": "US",
-				"loc": [37.4056,-122.0775],
-				"org": "AS15169 Google LLC",
-				"postal": "94043",
-				"timezone": "America/Los_Angeles"
+				"ip": "52.93.8.24",
+				"city": "Singapore",
+				"region": "Singapore",
+				"country": "SG",
+				"loc": [
+					1.2897,
+					103.8501
+				],
+				"postal": "048508",
+				"timezone": "Asia/Singapore"
 			},
 			{
 				"ipType": "public",
-				"ip": "216.58.196.14",
-				"hostname": "kul08s09-in-f14.1e100.net",
-				"city": "Bangkok",
-				"region": "Bangkok",
-				"country": "TH",
-				"loc": [13.7540,100.5014],
-				"org": "AS15169 Google LLC",
-				"postal": "10100",
-				"timezone": "Asia/Bangkok"
+				"ip": "52.93.11.33",
+				"city": "Singapore",
+				"region": "Singapore",
+				"country": "SG",
+				"loc": [
+					1.2897,
+					103.8501
+				],
+				"postal": "048508",
+				"timezone": "Asia/Singapore"
+			},
+			{
+				"ipType": "public",
+				"ip": "52.93.11.44",
+				"city": "Singapore",
+				"region": "Singapore",
+				"country": "SG",
+				"loc": [
+					1.2897,
+					103.8501
+				],
+				"postal": "048508",
+				"timezone": "Asia/Singapore"
+			},
+			{
+				"ipType": "public",
+				"ip": "150.222.108.141",
+				"city": "Singapore",
+				"region": "Singapore",
+				"country": "SG",
+				"loc": [
+					1.2897,
+					103.8501
+				],
+				"postal": "048508",
+				"timezone": "Asia/Singapore"
+			},
+			{
+				"ipType": "public",
+				"ip": "150.222.108.124",
+				"city": "Singapore",
+				"region": "Singapore",
+				"country": "SG",
+				"loc": [
+					1.2897,
+					103.8501
+				],
+				"postal": "048508",
+				"timezone": "Asia/Singapore"
+			},
+			{
+				"ipType": "public",
+				"ip": "13.229.188.59",
+				"hostname": "ec2-13-229-188-59.ap-southeast-1.compute.amazonaws.com",
+				"city": "Singapore",
+				"region": "Singapore",
+				"country": "SG",
+				"loc": [
+					1.2897,
+					103.8501
+				],
+				"org": "AS16509 Amazon.com, Inc.",
+				"postal": "048508",
+				"timezone": "Asia/Singapore"
 			}
 		]
 	};
 	
-	/* const domainName = document.getElementById("domainName").value;
+	const domainName = document.getElementById("domainName").value;
 	const domainPatternValidation = isUrlValid(domainName);
 	if (!domainPatternValidation) {
 		showErrorPopUp(0);
@@ -91,9 +181,9 @@ function initiate () {
 		return
 	}
 	getTracedInfo(domainName).then(data=>{ 
-		console.log(data); */
-		generatingRoutesOnMap(dummyData);
-	//})
+		console.log(data);
+		generatingRoutesOnMap(data);
+	})
 }
 
 function isUrlValid(str) {

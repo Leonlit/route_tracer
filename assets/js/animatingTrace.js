@@ -22,8 +22,10 @@ function generatingRoutesOnMap (data) {
         map.remove();
     }
     document.getElementById("routeList").innerHTML = "";
+    document.getElementById("routeEdges").innerHTML = "";
     const routes= data["routes"]
     const generatedColours = generateRandomColours(routes.length, colours);
+    console.log(generatedColours);
 	const mapLayer = new L.TileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {noWrap: true});
     
     const centroidPoint = calculateCentriodPoint(routes)
@@ -52,7 +54,6 @@ function generatingRoutesOnMap (data) {
         // generating the edges will also return the centroid for the edges so that we can use it 
         // in the list generated
         const centroid = generateEdges(coord, colour, route["ip"])
-        console.log(centroid);
         appendEdgeToList(route, colour, centroid)
 
         const marker = L.marker(
@@ -110,7 +111,6 @@ function calculateCentriodPoint(routes){
         if (point = route["loc"] == undefined) {
             continue;
         }
-        console.log(point);
         const coord = point.split(",");
         centroid[0] += parseInt(coord[0]);
         centroid[1] += parseInt(coord[1]);
@@ -194,7 +194,7 @@ function focusMarker (markerNum) {
     const container = document.getElementById(`marker_${markerNum}`);
     const element = container.getElementsByTagName("div")[0];
     const coord = public_coords[markerNum - 1][0]
-    map.flyTo(new L.LatLng(coord[0], coord[1]), 5);
+    map.flyTo(new L.LatLng(coord[0], coord[1]), 6);
 
     element.classList.add("markerBlinking");
     setTimeout(()=>{
