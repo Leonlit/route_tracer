@@ -50,8 +50,9 @@ function generatingRoutesOnMap (data) {
         public_coords.push([coord, route])
         // generating the edges will also return the centroid for the edges so that we can use it 
         // in the list generated
-        const edgesCentroid = generateEdges(coord, colour, route["ip"])
-        appendEdgeToList(route, colour, edgesCentroid)
+        const centroid = generateEdges(coord, colour, route["ip"])
+        console.log(centroid);
+        appendEdgeToList(route, colour, centroid)
 
         const marker = L.marker(
             coord,
@@ -77,13 +78,14 @@ function generateEdges (coord, colour, toIP) {
         const position = public_coords.length-1;
         popUp = `<b>${initiatedPoint[1]["ip"]}</b>  to  <b>${toIP}</b>`;
         line.on("click", function (e){
-            map.flyTo(line.getCenter());
+            map.flyTo(line.getCenter(),3);
             openRouteList();
             window.location.href = `#edge_${position}`;
         });
         line.addTo(map);
         line.bindPopup(popUp);
-        return line.getCenter();
+        const centroidCoord = line.getCenter();
+        return [centroidCoord["lat"], centroidCoord["lng"]];
     }
 }
 
@@ -127,14 +129,14 @@ function generateRandomColours(len, arr) {
     return colour
 }
 
-function appendEdgeToList (to, colour, flyTo) {
+function appendEdgeToList (to, colour, coord) {
     const container = document.getElementById("routeEdges")
     if (public_coords.length > 1) {
         const fromIndex = public_coords.length-2
         const from = public_coords[fromIndex][1];
         const elements = `
             <div class="edgesInfo" id="edge_${fromIndex + 1}">
-                <div class="edgesHeader">${fromIndex + 1} |------> ${fromIndex + 2}</div>
+                <div class="edgesHeader" onclick="focusToEdge(${coord})">${fromIndex + 1} <span style="color:${colour};">|------></span> ${fromIndex + 2}</div>
                 <div class="edgesWrapper">
                     <span class="edgesFrom">
                         <span>From</span>
@@ -217,4 +219,8 @@ function generatingBoundary(routes) {
     const upperBounds = new L.LatLng(lats[lats.length-1] + 20, longs[longs.length - 1] + 20);
 
     return new L.LatLngBounds(lowerBounds, upperBounds);
+}
+
+function focusToEdge (x, y) {
+    map.flyTo(new L.LatLng(x, y), 3);
 }
