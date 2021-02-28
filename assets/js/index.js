@@ -1,6 +1,6 @@
 'use strict'
 
-async function initiate () {
+function initiate () {
 	const dummyData = {
 		"domain": "google.com",
 		"routes": [
@@ -14,7 +14,7 @@ async function initiate () {
 				"city": "Seremban",
 				"region": "Negeri Sembilan",
 				"country": "MY",
-				"loc": "2.7297,101.9381",
+				"loc": [2.7297,101.9381],
 				"org": "AS4788 TM Net, Internet Service Provider",
 				"postal": "70600",
 				"timezone": "Asia/Kuala_Lumpur"
@@ -37,7 +37,7 @@ async function initiate () {
 				"city": "Mountain View",
 				"region": "California",
 				"country": "US",
-				"loc": "37.4056,-122.0775",
+				"loc": [37.4056,-122.0775],
 				"org": "AS15169 Google LLC",
 				"postal": "94043",
 				"timezone": "America/Los_Angeles"
@@ -48,7 +48,7 @@ async function initiate () {
 				"city": "Mountain View",
 				"region": "California",
 				"country": "US",
-				"loc": "37.4056,-122.0775",
+				"loc": [37.4056,-122.0775],
 				"org": "AS15169 Google LLC",
 				"postal": "94043",
 				"timezone": "America/Los_Angeles"
@@ -59,7 +59,7 @@ async function initiate () {
 				"city": "Mountain View",
 				"region": "California",
 				"country": "US",
-				"loc": "37.4056,-122.0775",
+				"loc": [37.4056,-122.0775],
 				"org": "AS15169 Google LLC",
 				"postal": "94043",
 				"timezone": "America/Los_Angeles"
@@ -71,7 +71,7 @@ async function initiate () {
 				"city": "Bangkok",
 				"region": "Bangkok",
 				"country": "TH",
-				"loc": "13.7540,100.5014",
+				"loc": [13.7540,100.5014],
 				"org": "AS15169 Google LLC",
 				"postal": "10100",
 				"timezone": "Asia/Bangkok"

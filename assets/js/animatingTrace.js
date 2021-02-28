@@ -20,14 +20,24 @@ function generatingRoutesOnMap (data) {
         map.off();
         map.remove();
     }
-    map = L.map("map");
     document.getElementById("routeList").innerHTML = "";
     const routes= data["routes"]
     const generatedColours = generateRandomColours(routes.length, colours);
 	const mapLayer = new L.TileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png');
-    map.addLayer(mapLayer);
-
+    
     const centroidPoint = calculateCentriodPoint(routes)
+    const boundary = generatingBoundary(routes);
+    
+    map = L.map("map", {
+        maxBoundsViscosity: 1.0,
+        maxBounds: boundary,
+        maxZoom: 15,
+        minZoom:0
+    });
+    map.on('drag', function() {
+        map.panInsideBounds(boundary, { animate: false });
+    });
+    map.addLayer(mapLayer);
     map.setView(centroidPoint, 2)
     
     routes.forEach((route, index) => {
@@ -39,8 +49,7 @@ function generatingRoutesOnMap (data) {
         }
 
         const icon = generateIconsForMarker(public_coords.length + 1, colour);
-        const coord = route["loc"].split(",")
-                    .map(num=>parseFloat(num));
+        const coord = route["loc"]
         public_coords.push([coord, route])
         appendEdgeToList(route, colour)
         generateEdges(coord, colour, route["ip"])
@@ -49,7 +58,7 @@ function generatingRoutesOnMap (data) {
             coord,
             {icon: icon}
             ).addTo(map);
-        marker.bindPopup(`<b>${route["city"]} ,${route["country"]}</b> [${route["loc"]}]`)     
+        marker.bindPopup(`<b>${route["city"]} ,${route["country"]}</b> [${route["loc"].join(", ")}]`)     
     })
 }
 
@@ -126,7 +135,7 @@ function appendEdgeToList (to) {
                         <span>${from["city"]}</span>
                         <span>${from["region"]}</span>
                         <span>${from["country"]}</span>
-                        <span>${from["loc"]}</span>
+                        <span>${from["loc"].join(", ")}</span>
                         <span>${from["ip"]}</span>
                     </span>
                     <span class="edgesTo">
@@ -134,7 +143,7 @@ function appendEdgeToList (to) {
                         <span>${to["city"]}</span>
                         <span>${to["region"]}</span>
                         <span>${to["country"]}</span>
-                        <span>${to["loc"]}</span>
+                        <span>${to["loc"].join(", ")}</span>
                         <span>${to["ip"]}</span>
                     </span>
                 </div>
@@ -154,7 +163,7 @@ function appendingRouteToListing(route, colour){
                 <legend>${currIndex}</legend>
                 <span>${route["ip"]}</span>
                 <span>${route["ipType"]}</span>
-                <span>${route["loc"]}</span>
+                <span>${route["loc"].join(", ")}</span>
                 <span>${route["city"]}, ${route["region"]}, ${route["postal"]}</span>
                 <span>${route["country"]}</span>
                 <span>${org}</span>
@@ -175,9 +184,32 @@ function appendingRouteToListing(route, colour){
 function focusMarker (markerNum) {
     const container = document.getElementById(`marker_${markerNum}`);
     const element = container.getElementsByTagName("div")[0];
+    const coord = public_coords[markerNum - 1][0]
+    map.flyTo(new L.LatLng(coord[0], coord[1]), 5);
 
     element.classList.add("markerBlinking");
     setTimeout(()=>{
         element.classList.remove("markerBlinking");
-    }, 7000)
+    }, 7500)
+}
+
+function generatingBoundary(routes) {
+    //const bounds = new L.LatLngBounds(new L.LatLng(49.5, -11.3), new L.LatLng(61.2, 2.5));
+    let lats = []
+    let longs = []
+    
+    routes.forEach(route=>{
+        const init = route["loc"];
+        if (init == undefined) {
+            return;
+        }
+        lats.push(init[0])
+        longs.push(init[1])
+    }) 
+    lats.sort()
+    longs.sort()
+    const lowerBounds = new L.LatLng(lats[0] - 20 , longs[0] - 20);
+    const upperBounds = new L.LatLng(lats[lats.length-1] + 20, longs[longs.length - 1] + 20);
+
+    return new L.LatLngBounds(lowerBounds, upperBounds);
 }

@@ -6,7 +6,7 @@ function openCloseRouteList() {
     if (!isRouteListOpen) {
         openRouteList();
     }else {
-        closeOpenList();   
+        closRouteList();   
     }
 
 }
