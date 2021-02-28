@@ -29,9 +29,7 @@ function generatingRoutesOnMap (data) {
     const boundary = generatingBoundary(routes);
     
     map = L.map("map", {
-        minZoom: 3,
-        maxBoundsViscosity: 1.0,
-        maxBounds: boundary,
+        minZoom: 2,
     });
     map.on('drag', function() {
         map.panInsideBounds(boundary, { animate: false });
@@ -50,8 +48,10 @@ function generatingRoutesOnMap (data) {
         const icon = generateIconsForMarker(public_coords.length + 1, colour);
         const coord = route["loc"]
         public_coords.push([coord, route])
-        appendEdgeToList(route, colour)
-        generateEdges(coord, colour, route["ip"])
+        // generating the edges will also return the centroid for the edges so that we can use it 
+        // in the list generated
+        const edgesCentroid = generateEdges(coord, colour, route["ip"])
+        appendEdgeToList(route, colour, edgesCentroid)
 
         const marker = L.marker(
             coord,
@@ -74,9 +74,16 @@ function generateEdges (coord, colour, toIP) {
             opacity: 0.5,
             smoothFactor: 1
         });
-        popUp = `<b>${initiatedPoint[1]["ip"]}</b>  to  <b>${toIP}</b>`
+        const position = public_coords.length-1;
+        popUp = `<b>${initiatedPoint[1]["ip"]}</b>  to  <b>${toIP}</b>`;
+        line.on("click", function (e){
+            map.flyTo(line.getCenter());
+            openRouteList();
+            window.location.href = `#edge_${position}`;
+        });
         line.addTo(map);
-        line.bindPopup(popUp)
+        line.bindPopup(popUp);
+        return line.getCenter();
     }
 }
 
@@ -120,13 +127,13 @@ function generateRandomColours(len, arr) {
     return colour
 }
 
-function appendEdgeToList (to) {
+function appendEdgeToList (to, colour, flyTo) {
     const container = document.getElementById("routeEdges")
     if (public_coords.length > 1) {
         const fromIndex = public_coords.length-2
         const from = public_coords[fromIndex][1];
         const elements = `
-            <div class="edgesInfo">
+            <div class="edgesInfo" id="edge_${fromIndex + 1}">
                 <div class="edgesHeader">${fromIndex + 1} |------> ${fromIndex + 2}</div>
                 <div class="edgesWrapper">
                     <span class="edgesFrom">
@@ -193,7 +200,6 @@ function focusMarker (markerNum) {
 }
 
 function generatingBoundary(routes) {
-    //const bounds = new L.LatLngBounds(new L.LatLng(49.5, -11.3), new L.LatLng(61.2, 2.5));
     let lats = []
     let longs = []
     

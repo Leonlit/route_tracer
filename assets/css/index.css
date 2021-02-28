@@ -90,6 +90,7 @@ input[type="submit"]{
     border-bottom: 1px solid grey;
     background-color: rgb(0, 0, 0);
     cursor:pointer;
+    position:inherit;
 }
 
 .map_container {
@@ -104,9 +105,14 @@ input[type="submit"]{
     color: white;
     height:100vh;
     transition: 0.5s;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+#routeWrapper {
+    margin-top: 3vh;
+    height: 97vh;
     overflow-y: auto;
     scroll-behavior: smooth;
-    background-color: rgba(0, 0, 0, 0.8);
 }
 
 #routeContainer > div > h3 {
