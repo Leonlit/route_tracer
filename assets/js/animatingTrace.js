@@ -93,9 +93,8 @@ function generateEdges (coord, colour, toIP) {
         }
 
         options.animate = {
-            duration: Math.sqrt(Math.log(r)) * 2000,
+            duration: 3000,
             easing: 'ease-in-out',
-            direction: 'alternate'
         }
 
         latlngs.push(coord, midpointLatLng, initiatedPointCoord);
