@@ -22,16 +22,20 @@ def pingDomain(domainName):
     return (domainNameAlive, domainNameAlive["status"])
 
 @app.route('/js/<path:path>')
-def send_js(path): 
+def route_JS_File(path): 
     return send_from_directory('assets/js', path)
 
 @app.route('/css/<path:path>')
-def send_css(path): 
+def route_CSS_File(path): 
     return send_from_directory('assets/css', path)
 
 @app.route('/icon/<path:path>')
-def send_icon(path): 
+def route_Image_File(path): 
     return send_from_directory('assets/icon', path)
+
+@app.route('/external/<path:path>')
+def route_External_File(path): 
+    return send_from_directory('assets/external', path)
 
 if __name__ == '__main__':
        app.run(debug = True)

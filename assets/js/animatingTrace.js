@@ -68,26 +68,56 @@ function generateEdges (coord, colour, toIP) {
     if (public_coords.length > 1) {
         const initiatedPoint = public_coords[public_coords.length-2]
         const initiatedPointCoord = initiatedPoint[0];
-        const a = new L.LatLng(coord[0], coord[1]);
-        const b = new L.LatLng(initiatedPointCoord[0], initiatedPointCoord[1]);
-        const pointList = [a, b];
-        const line = new L.Polyline(pointList, {
+
+        const offsetX = initiatedPointCoord[1] - coord[1],
+        offsetY = initiatedPointCoord[0] - coord[0];
+
+        const latlngs = [];
+        const r = Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2)),
+        theta = Math.atan2(offsetY, offsetX);
+        const thetaOffset = (3.14 / 10);
+        
+        const  r2 = (r / 2) / (Math.cos(thetaOffset)),
+        theta2 = theta + thetaOffset;
+
+        const midpointX = (r2 * Math.cos(theta2)) + coord[1],
+        midpointY = (r2 * Math.sin(theta2)) + coord[0];
+
+        const midpointLatLng = [midpointY, midpointX];
+
+        const options = {
             color: colour,
             weight: 3,
             opacity: 0.5,
-            smoothFactor: 1
-        });
+            smoothFactor: 1,
+        }
+
+        options.animate = {
+            duration: Math.sqrt(Math.log(r)) * 2000,
+            easing: 'ease-in-out',
+            direction: 'alternate'
+        }
+
+        latlngs.push(coord, midpointLatLng, initiatedPointCoord);
+
+        const curvedLine = new L.curve(
+            [
+                'M', coord,
+                'Q', midpointLatLng,
+                initiatedPointCoord
+            ], options
+        );
+
         const position = public_coords.length-1;
         popUp = `<b>${initiatedPoint[1]["ip"]}</b>  to  <b>${toIP}</b>`;
-        line.on("click", function (e){
-            map.flyTo(line.getCenter(),3);
+        curvedLine.on("click", function (e){
+            map.flyTo(curvedLine.getCenter(),3);
             openRouteList();
             window.location.href = `#edge_${position}`;
         });
-        line.addTo(map);
-        line.bindPopup(popUp);
-        const centroidCoord = line.getCenter();
-        return [centroidCoord["lat"], centroidCoord["lng"]];
+        curvedLine.addTo(map);
+        curvedLine.bindPopup(popUp);
+        return midpointLatLng;
     }
 }
 
