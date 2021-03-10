@@ -1,9 +1,4 @@
-/* // lat, long
-let map; // = L.map("map").setView([51.505, -0.09], 13);
-// Creating a Layer object
-const mapLayer = new L.TileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png');
-// Adding layer to the map
-map.addLayer(mapLayer); */
+
 const colours = [
     '#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231',
     '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe',
@@ -20,11 +15,14 @@ function generatingRoutesOnMap (data) {
     if (map != null) {
         map.off();
         map.remove();
+        map = null;
     }
+    console.log(public_coords);
+    console.log(map);
     document.getElementById("routeList").innerHTML = "";
     document.getElementById("routeEdges").innerHTML = "";
     const routes= data["routes"]
-    const generatedColours = generateRandomColours(routes.length, colours);
+    const generatedColours = generateRandomColours(routes.filter(item => item["city"]).length, colours.slice());
     console.log(generatedColours);
 	const mapLayer = new L.TileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {noWrap: true});
     
@@ -40,8 +38,9 @@ function generatingRoutesOnMap (data) {
     map.addLayer(mapLayer);
     map.setView(centroidPoint, 2)
     
-    routes.forEach((route, index) => {
-        const colour = generatedColours[index]
+    routes.forEach(route => {
+        //before adding the current route to the aray public_coords get the current colour index
+        const colour = generatedColours[public_coords.length]
         appendingRouteToListing(route, colour)
 
         if (route["ipType"] == "private") {

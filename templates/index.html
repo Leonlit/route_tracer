@@ -20,10 +20,14 @@
 		<div id="routeContainer" class="map_container">
 			<div id="openCloseList" class="map_container" onclick="openCloseRouteList()"></div>
 			<div id="routeWrapper">
-				<h3 class="map_container">Route Connections</h3>
-				<div id="routeEdges"></div>
-				<h3 class="map_container">Route List</h3>
-				<div id="routeList"><h3 style="text-align: center;">None</h3></div>
+				<details>
+					<summary class="map_container">Route Connections</summary>
+					<div id="routeEdges"></div>
+				</details>
+				<details>
+					<summary class="map_container">Route List</summary>
+					<div id="routeList"><h3 style="text-align: center;">None</h3></div>
+				</details>
 			</div>
 		</div>
 		<footer class="map_container">

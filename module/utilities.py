@@ -1,7 +1,7 @@
 import module.ipUtilities as ip_utilities
 import module.utilities as utilities
 from dotenv import load_dotenv
-import os, platform, subprocess, requests, json
+import os, platform, subprocess, requests, json, logging
 
 IP_INFO_KEY = os.getenv("IPINFO_API_KEY")
 IP_GEOLOCATION_KEY = os.getenv("IPGEOLOCATION_API_KEY")
@@ -16,11 +16,23 @@ def getIpAddress():
 def getRequestData(url):
     try:
         response = requests.get(url)
-        jsonData = json.loads(response.content)
+        statsCode = response.status_code
+        if (statsCode == 200):
+            jsonData = response.json()
+        else:
+            manageRequestResponse(statsCode)
+        
         return jsonData
     except requests.exceptions.HTTPError as e:
         print(f"Error when requesting data from API server{str(e)}")
     return False
+
+# logging
+def manageRequestResponse(statsCode):
+    #
+    print("test")
+    
+    
 
 def getIpsInfoUsingAPI (routes):
     for index, ip in enumerate(routes["routes"]):
@@ -35,7 +47,7 @@ def getIpsInfoUsingAPI (routes):
             apiEndPoint = f"https://ipinfo.io/{ip}?token={IP_INFO_KEY}"
             try:
                 ipInfo = getRequestData(apiEndPoint)
-                print(apiEndPoint)
+                
                 if ipInfo is not None:
                     obj = obj | ipInfo # combining the data
                     coord_x, coord_y = obj["loc"].split(",")
