@@ -2,6 +2,7 @@
 
 function initiate () {
 	closeRouteList();
+	showLoading();
 	const dummyData = {
 		"domain": "github.com",
 		"routes": [

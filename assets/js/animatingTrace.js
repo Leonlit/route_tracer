@@ -17,8 +17,6 @@ function generatingRoutesOnMap (data) {
         map.remove();
         map = null;
     }
-    console.log(public_coords);
-    console.log(map);
     document.getElementById("routeList").innerHTML = "";
     document.getElementById("routeEdges").innerHTML = "";
     const routes= data["routes"]
@@ -63,6 +61,7 @@ function generatingRoutesOnMap (data) {
     })
 }
 
+//generating curved lines using leaflet.curve library
 function generateEdges (coord, colour, toIP) {
     if (public_coords.length > 1) {
         const initiatedPoint = public_coords[public_coords.length-2]

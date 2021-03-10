@@ -29,3 +29,8 @@ function closeRouteList(){
         routeWrapper.style.marginTop = "3vh";
     }, 550)
 }
+
+const loadingShader = document.getElementById("loaderShader");
+function showLoading(){
+    loadingShader
+}

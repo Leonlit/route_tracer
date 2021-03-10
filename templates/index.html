@@ -16,7 +16,8 @@
 		<form id="inputField" class="map_container" onsubmit="initiate()">
 			<input required type="url" id="domainName" class="formInput" placeholder="www.google.com" autocomplete="off"/>
 			<span class="glyphicon glyphicon-search" id="searchIcon" onclick="initiate()"></span>
-		</form>	
+		</form>
+
 		<div id="routeContainer" class="map_container">
 			<div id="openCloseList" class="map_container" onclick="openCloseRouteList()"></div>
 			<div id="routeWrapper">
@@ -38,6 +39,11 @@
 			<span><a>source code</a></span>
 			<span></span>
 		</footer>
+
+		<div class="loaderShader">
+			<div class="loader"></div>
+		</div>
+
 	</body>
 </html>
 
