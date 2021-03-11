@@ -11,6 +11,7 @@ let map;
 let public_coords; // [coord, routeObj]
 
 function generatingRoutesOnMap (data) {
+    hideLoading();
     public_coords = []
     if (map != null) {
         map.off();

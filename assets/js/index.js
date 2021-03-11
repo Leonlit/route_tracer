@@ -171,7 +171,7 @@ function initiate () {
 		]
 	};
 	
-	/* const domainName = document.getElementById("domainName").value;
+	const domainName = document.getElementById("domainName").value;
 	const domainPatternValidation = isUrlValid(domainName);
 	if (!domainPatternValidation) {
 		showErrorPopUp(0);
@@ -183,9 +183,9 @@ function initiate () {
 		return
 	}
 	getTracedInfo(domainName).then(data=>{ 
-		console.log(data);  */
-		generatingRoutesOnMap(dummyData);
-	//})
+		console.log(data); 
+		generatingRoutesOnMap(data);
+	})
 }
 
 function isUrlValid(str) {

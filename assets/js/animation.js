@@ -32,5 +32,9 @@ function closeRouteList(){
 
 const loadingShader = document.getElementById("loaderShader");
 function showLoading(){
-    loadingShader
+    loadingShader.style.display = "block";
+}
+
+function hideLoading() {
+    loadingShader.style.display = "none";
 }
