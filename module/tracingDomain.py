@@ -1,12 +1,14 @@
 import module.utilities as utilities
-import platform, subprocess, re, ipaddress
-from module.logOperation import CustomLogger
+import platform, subprocess, re, ipaddress, logging
+import module.logOperation as log
 
 def getTraceInfo (domainIP):
     result = traceDomain(domainIP)
     return result
 
-newLogger = CustomLogger()
+__log = log.loggingInit()
+__log.info("test")
+
 # need to figure out how to use traceroute in mac
 def traceDomain(domainIP):
     platformType = platform.system().lower()
@@ -36,11 +38,11 @@ def traceDomain(domainIP):
             "routes": filteredOutput
         }
         print("done setting up data")
-        newLogger.operationLog(f"Route traced for [{domainIP}]")
+        __log.info(f"Route traced for [{domainIP}]")
         # returning a dictionary ^
         return data
     except Exception as e:
-        newLogger.criticalLog(f"Unexpected error occured! Could not trace route. for domain [{domainIP}]")
+        __log.critical(f"Unexpected error occured! Could not trace route. for domain [{domainIP}]")
     return False
 
 def filterRouteOutput(output, osType):

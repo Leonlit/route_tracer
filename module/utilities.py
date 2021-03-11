@@ -1,37 +1,37 @@
 import module.ipUtilities as ip_utilities
 import module.utilities as utilities
-from module.logOperation import CustomLogger
+import module.logOperation as log
 
 from dotenv import load_dotenv
-import os, platform, subprocess, requests, json, logging
+import os, platform, subprocess, requests, json
 
 IP_INFO_KEY = os.getenv("IPINFO_API_KEY")
 IP_GEOLOCATION_KEY = os.getenv("IPGEOLOCATION_API_KEY")
 
-newLogger = CustomLogger()
+__log = log.loggingInit()
 
 def getRequestData(url):
     try:
         response = requests.get(url)
         statsCode = response.status_code
         if (statsCode == 200):
-            newLogger.operationLog(f"Request Successful for [{url}]")
+            __log.info(f"API Request Successful for [{url}]")
             jsonData = response.json()
         else:
             manageRequestResponse(statsCode, url)
         return jsonData
     except requests.exceptions.HTTPError as e:
-        newLogger.errorLog( f"Error when requesting data from API server{str(e)}")
+        __log.error( f"Error when requesting data from API server{str(e)}")
     return False
 
 # logging
 def manageRequestResponse(statsCode, url):
     if statsCode == 400:
-        newLogger.errorLog(f"User invalid parameter usage when requesting data from [{url}]")
+        __log.error(f"User invalid parameter usage when requesting data from [{url}]")
     if statsCode == 422:
-        newLogger.errorLog(f"[{url}] is an invalid IP address")
+        __log.error(f"[{url}] is an invalid IP address")
     if statsCode == 429:
-        newLogger.errorLog(f"API rate limit achieved")
+        __log.error(f"API rate limit achieved")
 
 
 def getIpsInfoUsingAPI (routes):
@@ -43,7 +43,6 @@ def getIpsInfoUsingAPI (routes):
         if not ip_utilities.isIP_public(ip):
             obj["ip"] = ip
         else:
-            print(IP_INFO_KEY)
             apiEndPoint = f"https://ipinfo.io/{ip}?token={IP_INFO_KEY}"
             try:
                 ipInfo = getRequestData(apiEndPoint)
@@ -54,7 +53,7 @@ def getIpsInfoUsingAPI (routes):
                     newCoord = [float(coord_x),float(coord_y)]
                     obj["loc"] = newCoord
             except Exception as e:
-                 newLogger.errorLog(f"{e.__class__} {e} occurred. Continuing with the next entry.")
+                 __log.error(f"{e.__class__} {e} occurred. Continuing with the next entry.")
         routes["routes"][index] = obj
     if routes is not None:
         return routes
@@ -69,9 +68,8 @@ def pingDomainName(domainIP):
             stdout=subprocess.DEVNULL, 
             stderr=subprocess.STDOUT
         )
-        newLogger.operationLog(f"Ping operation for [{domainIP}] is sucessful")
-        print(result)
-    except:
-        newLogger.errorLog(f"Could not PING {domainIP}")
+        __log.info(f"Ping operation for [{domainIP}] is sucessful")
+    except Exception:
+        __log.error(f"Could not PING {domainIP}")
         return False
     return result == 0

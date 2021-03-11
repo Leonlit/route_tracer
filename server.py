@@ -12,12 +12,10 @@ def homePage():
 @app.route("/tracedInfo/<string:ipAddr>", methods=["GET"])
 def tracedInfo(ipAddr):
     routesInfo = initiate.initiateTracing(ipAddr)
-    print(routesInfo)
     return (routesInfo["message"],routesInfo["status"]) #routesInfo.message,
 
 @app.route("/pingDomain/<string:domainName>", methods=["GET"])
 def pingDomain(domainName):
-    print(domainName)
     domainNameAlive = initiate.checkIfDomainIsAlive(domainName)
     return (domainNameAlive, domainNameAlive["status"])
 
