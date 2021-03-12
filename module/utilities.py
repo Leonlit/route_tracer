@@ -8,7 +8,7 @@ import os, platform, subprocess, requests, json
 IP_INFO_KEY = os.getenv("IPINFO_API_KEY")
 IP_GEOLOCATION_KEY = os.getenv("IPGEOLOCATION_API_KEY")
 
-__log = log.loggingInit()
+__log = log.loggingInit("utilities")
 
 def getRequestData(url):
     try:
@@ -17,21 +17,22 @@ def getRequestData(url):
         if (statsCode == 200):
             __log.info(f"API Request Successful for [{url}]")
             jsonData = response.json()
+            return jsonData
         else:
             manageRequestResponse(statsCode, url)
-        return jsonData
     except requests.exceptions.HTTPError as e:
         __log.error( f"Error when requesting data from API server{str(e)}")
-    return False
 
 # logging
 def manageRequestResponse(statsCode, url):
     if statsCode == 400:
-        __log.error(f"User invalid parameter usage when requesting data from [{url}]")
+        __log.error(f"User invalid parameter usage when requesting data from [{url}] - 400")
     if statsCode == 422:
-        __log.error(f"[{url}] is an invalid IP address")
+        __log.error(f"[{url}] is an invalid IP address - 422")
     if statsCode == 429:
-        __log.error(f"API rate limit achieved")
+        __log.error(f"API rate limit achieved - 429")
+        global rate_limit_reached
+        rate_limit_reached = True
 
 
 def getIpsInfoUsingAPI (routes):
@@ -46,22 +47,22 @@ def getIpsInfoUsingAPI (routes):
             apiEndPoint = f"https://ipinfo.io/{ip}?token={IP_INFO_KEY}"
             try:
                 ipInfo = getRequestData(apiEndPoint)
-                
                 if ipInfo is not None:
                     obj = obj | ipInfo # combining the data
                     coord_x, coord_y = obj["loc"].split(",")
                     newCoord = [float(coord_x),float(coord_y)]
                     obj["loc"] = newCoord
+                    
             except Exception as e:
-                 __log.error(f"{e.__class__} {e} occurred. Continuing with the next entry.")
+                __log.error(f"{e.__class__} {e} occurred. Continuing with the next entry.")
         routes["routes"][index] = obj
-    if routes is not None:
+    if routes:
         return routes
     return False
 
 def pingDomainName(domainIP):
     param = '-n' if platform.system().lower()=='windows' else '-c'
-    command = ['ping', param, '1', domainIP]
+    command = ['ping', param, '1', "-4" ,domainIP]
     try:
         result = subprocess.call(
             command,

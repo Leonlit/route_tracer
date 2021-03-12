@@ -3,7 +3,8 @@ import module.tracingDomain as trace
 import module.ipUtilities as ip_utilities
 import module.logOperation as log
 from module.errorHandling import RequestType, RequestError
-import logging
+
+rate_limit_reached = False
 
 def initiateTracing (ipAddr):
     if not ip_utilities.isDomain_and_IP_valid(ipAddr):
@@ -12,9 +13,13 @@ def initiateTracing (ipAddr):
         return RequestType.serviceUnavailable.getResponse()
 
     fullRouteData = trace.getTraceInfo(ipAddr)
+    print(fullRouteData)
     if not fullRouteData:
         return RequestType.internalError.getResponse()
     fullrouteInfo = utilities.getIpsInfoUsingAPI(fullRouteData)
+    global rate_limit_reached
+    if rate_limit_reached:
+        return RequestType.rateLimitReach.getResponse()
     req = RequestError(200, fullrouteInfo)
     return req.getResponse()
 

@@ -6,8 +6,7 @@ def getTraceInfo (domainIP):
     result = traceDomain(domainIP)
     return result
 
-__log = log.loggingInit()
-__log.info("test")
+__log = log.loggingInit("domainTracing")
 
 # need to figure out how to use traceroute in mac
 def traceDomain(domainIP):
@@ -22,7 +21,7 @@ def traceDomain(domainIP):
     # constructing the command
     commandtype = ('traceroute' ,'tracert')
     filename = f"./{domainIP}_route.txt"
-    command = [commandtype[osType], domainIP]
+    command = [commandtype[osType], "-4", domainIP]
 
     # if somehow the command execution return an unexpected error
     try:
