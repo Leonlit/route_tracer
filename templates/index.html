@@ -14,9 +14,14 @@
 		<noscript>Please enable Javascript for this website. It needs Javascript to perform its magic!</noscript>
 		<div id="map"></div>
 		<form id="inputField" class="map_container" onsubmit="initiate()">
-			<input required type="url" id="domainName" class="formInput" placeholder="www.google.com" autocomplete="off"/>
+			<input required id="domainName" class="formInput" placeholder="domainName.com" autocomplete="off"/>
 			<span class="glyphicon glyphicon-search" id="searchIcon" onclick="initiate()"></span>
 		</form>
+
+		<div id="history" class="map_container">
+			<div id="historyIndicator" onclick="openCloseHistory()" class="fa fa-angle-right"></div>
+			<div id="historyList"></div>
+		</div>
 
 		<div id="routeContainer" class="map_container">
 			<div id="openCloseList" class="map_container" onclick="openCloseRouteList()"></div>
