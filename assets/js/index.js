@@ -214,6 +214,8 @@ async function getUrlRequest (url) {
 	return await fetch(url).then(response=>{
 		if (response.ok) {
 			return response.json()
+		}else {
+			
 		}
 		throw new Error("Something went wrong"); 
 	}).catch(error => {

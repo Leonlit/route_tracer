@@ -286,7 +286,7 @@ footer a:hover {
 }
 
 
-#loaderShader {
+.shader {
     display: none;
     position: fixed;
     background-color: rgba(0, 0, 0, 0.842);
@@ -309,6 +309,17 @@ footer a:hover {
     animation: loaderSpin 2s linear infinite;
 }
 
+.errorContainerOpen{
+    position: fixed;
+    left: 50%;
+    top: 25%;
+    transform: translate(-50%, -50%);
+    color: aliceblue;
+    padding: 2%;
+    border-radius: 5px;
+    background-color: rgb(65, 65, 65);
+    font-size: 1.3em;
+}
 
 /* width */
 ::-webkit-scrollbar {
