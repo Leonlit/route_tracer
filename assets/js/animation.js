@@ -36,5 +36,6 @@ function showLoading(){
 }
 
 function hideLoading() {
+    console.log("test");
     loadingShader.style.display = "none";
 }

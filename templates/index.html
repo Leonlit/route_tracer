@@ -13,14 +13,14 @@
 	<body>
 		<noscript>Please enable Javascript for this website. It needs Javascript to perform its magic!</noscript>
 		<div id="map"></div>
-		<form id="inputField" class="map_container" onsubmit="initiate()">
+		<div id="inputField" class="map_container">
 			<input required id="domainName" class="formInput" placeholder="domainName.com" autocomplete="off"/>
 			<span class="glyphicon glyphicon-search" id="searchIcon" onclick="initiate()"></span>
-		</form>
+		</div>
 
 		<div id="history" class="map_container">
 			<div id="historyIndicator" onclick="openCloseHistory()" class="fa fa-angle-right"></div>
-			<div id="historyList"></div>
+			<div id="historyList" class="fa fa-book"></div>
 		</div>
 
 		<div id="routeContainer" class="map_container">

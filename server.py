@@ -12,13 +12,15 @@ def homePage():
 @app.route("/tracedInfo/<string:ipAddr>", methods=["GET"])
 def tracedInfo(ipAddr):
     routesInfo = initiate.initiateTracing(ipAddr)
-    return (routesInfo["message"],routesInfo["status"]) #routesInfo.message,
+    return (routesInfo["message"],routesInfo["status"])
 
+# checking if the host can be reached
 @app.route("/pingDomain/<string:domainName>", methods=["GET"])
 def pingDomain(domainName):
     domainNameAlive = initiate.checkIfDomainIsAlive(domainName)
     return (domainNameAlive, domainNameAlive["status"])
 
+# for providing js, css, media file and as well as media files
 @app.route('/js/<path:path>')
 def route_JS_File(path): 
     return send_from_directory('assets/js', path)

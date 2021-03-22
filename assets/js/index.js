@@ -1,5 +1,12 @@
 'use strict'
 
+document.getElementById("domainName").addEventListener("keyup", (event)=>{
+	if (event.key === "Enter") {
+		event.preventDefault()
+		initiate()
+	}
+})
+
 function initiate () {
 	closeRouteList();
 	showLoading();
@@ -185,6 +192,7 @@ function initiate () {
 	getTracedInfo(domainName).then(data=>{ 
 		console.log(data); 
 		generatingRoutesOnMap(data);
+		hideLoading();
 	})
 }
 
