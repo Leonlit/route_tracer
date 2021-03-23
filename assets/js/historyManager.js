@@ -68,7 +68,8 @@ function isHistoryTooOld (currTime, prevTime) {
 
 function setupHistoryPage () {
     const itemList = localStorage.getItem("historyNameList");
-    itemList.forEach(item => {
+    const jsonData = JSON.parse(itemList);
+    jsonData.forEach(item => {
         addItemIntoHistoryPage(item.name, item.timestamp);
     });
 }
@@ -78,11 +79,24 @@ function addItemIntoHistoryPage (name, timestamp) {
     const dateTime = formatingTimestamp(timestamp)
     const element = `
         <div class="historyItem">
-            <span class="historyName clickable">${name}</span>
+            <span class="historyName clickable" onclick="openFromHistory('${name}')">${name}</span>
             <span class="historyDate">${dateTime}</span>
         </div>
     `
     historyList.innerHTML += element ;
+}
+
+function openFromHistory (name) {
+    const data = localStorage.getItem(name);
+    const jsonData = JSON.parse(data)
+    if (data != undefined) {
+        showLoading();
+        generatingRoutesOnMap(jsonData.data)
+        hideLoading();
+        closeHistory();
+    }else {
+        showErrorPopUp(3);
+    }
 }
 
 function formatingTimestamp (time) {

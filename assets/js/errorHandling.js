@@ -7,6 +7,9 @@ const ERROR_TYPE = {
     },
     2: {
         message: "API rate limit reached!"
+    },
+    3: {
+        message: "Cannot load data from history, please try again."
     }
 }
 
