@@ -32,12 +32,6 @@ noscript {
     padding:10px;
 }
 
-input[type="submit"]{
-	border: none;
-	cursor: pointer;
-	outline: none;
-}
-
 .formInput {
     border-radius: 5px;
     font-size: 1.4em;
@@ -56,13 +50,83 @@ input[type="submit"]{
 #searchIcon {
     border-left:1px solid transparent;
     font-size:1.7em;
-    cursor: pointer;
     transition:0.3s;
 }
 
 #searchIcon:hover {
     border-left:1px solid grey;
     color:white;
+}
+
+#historyIcon {
+    position: fixed;
+    top: 20%;
+    left: 5px;
+    transition: 0.3s;
+}
+
+#historyIcon:hover {
+    color: white;
+}
+
+#historyListContainer {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top:50%;
+    width:50%;
+    height:40%;
+    padding: 3%;
+    transform: translate(-50%, -50%);
+    color: rgb(167, 167, 167);
+    border-radius: 10px;
+}
+
+.closeBtn {
+    color: white;
+    float:right;
+    margin-right: -4%;
+    margin-top: -4%;
+    font-size: 2em;
+    font-weight: 900;
+    transition: 0.3s;
+}
+
+.closeBtn:hover {
+    transform:scale(1.3);
+    text-shadow: 0px 3px 3px grey;
+}
+
+#historyListContainer > hr {
+    width:95%;
+    background-color: #696969;
+}
+
+#historyList {
+    margin-top: 5%;
+    font-size:1.2em;
+}
+
+.historyItem {
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.historyName {
+    font-weight: 900;
+    transition: 0.3s;
+}
+
+.historyName:hover {
+    color: white;
+}
+
+.historyDate {
+    float: right;
+}
+
+#historyIcon {
+    font-size:2.5em;
 }
 
 #map { 
@@ -89,7 +153,6 @@ input[type="submit"]{
     height: 3%;
     border-bottom: 1px solid grey;
     background-color: rgb(0, 0, 0);
-    cursor:pointer;
     position:inherit;
 }
 
@@ -116,7 +179,6 @@ input[type="submit"]{
 }
 
 #routeContainer > div > details {
-    cursor: pointer;
     transition: 0.3s;
 }
 
@@ -157,7 +219,6 @@ input[type="submit"]{
     font-size: 1.2em;
     font-weight: 900;
     transition: 0.3s;
-    cursor:pointer;
 }
 
 .edgesHeader:hover {
@@ -195,7 +256,6 @@ input[type="submit"]{
     border-radius: 5px;
     border: 1px solid grey;
     margin-bottom: 10px;
-    cursor: pointer;
     transition: 0.3s;
 }
 

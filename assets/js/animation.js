@@ -39,3 +39,17 @@ function hideLoading() {
     console.log("test");
     loadingShader.style.display = "none";
 }
+
+const historyContainer = document.getElementById("historyListContainer");
+const historyShader = document.getElementById("historyShader");
+
+function openHistory() {
+    historyContainer.style.display = "block"
+    historyShader.style.display = "block"
+}
+
+function closeHistory (){
+    console.log("test");
+    historyContainer.style.display = "none"
+    historyShader.style.display = "none"
+}

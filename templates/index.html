@@ -1,13 +1,14 @@
 <html>
 	<head>
-		<title>Route Tracer - v0.1</title>
+		<title>Route Tracer - v1.0</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="/external/leaflet/leaflet.css"/>
 		<script src="/external/leaflet/leaflet.js"></script>
 		<script src="/external/leaflet/plugins/leaflet.curve.js"></script>
 		<link href="/css/animations.css" rel="stylesheet"/>
-		<link href="/css/index.css" rel="stylesheet"/>
+		<link href="/css/utilities.css" rel="stylesheet"/>
+		<link href="/css/desktop.css" rel="stylesheet"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body>
@@ -15,22 +16,30 @@
 		<div id="map"></div>
 		<div id="inputField" class="map_container">
 			<input required id="domainName" class="formInput" placeholder="domainName.com" autocomplete="off"/>
-			<span class="glyphicon glyphicon-search" id="searchIcon" onclick="initiate()"></span>
+			<span class="glyphicon glyphicon-search clickable" id="searchIcon" onclick="initiate()"></span>
 		</div>
-
-		<div id="history" class="map_container">
-			<div id="historyIndicator" onclick="openCloseHistory()" class="fa fa-angle-right"></div>
-			<div id="historyList" class="fa fa-book"></div>
+		
+		<div id="historyShader" class="shader" onclick="closeHistory()"></div>
+		<span id="historyIcon" onclick="openHistory()" class="glyphicon glyphicon-book clickable"></span>
+		<div id="historyListContainer" class="map_container">
+			<div></div>
+			<span class="closeBtn clickable" onclick="closeHistory()">X</span>
+			<div id="historyList" class="map_container">
+				<div class="historyItem">
+					<span class="historyName clickable">test</span>
+					<span class="historyDate">13/12/23</span>
+				</div>
+			</div>
 		</div>
 
 		<div id="routeContainer" class="map_container">
-			<div id="openCloseList" class="map_container" onclick="openCloseRouteList()"></div>
+			<div id="openCloseList" class="map_container clickable" onclick="openCloseRouteList()"></div>
 			<div id="routeWrapper">
-				<details>
+				<details class="clickable">
 					<summary class="map_container">Route Connections</summary>
 					<div id="routeEdges"></div>
 				</details>
-				<details>
+				<details class="clickable">
 					<summary class="map_container">Route List</summary>
 					<div id="routeList"><h3 style="text-align: center;">None</h3></div>
 				</details>
@@ -56,5 +65,6 @@
 
 <script src="/js/animation.js"></script>
 <script src="/js/animatingTrace.js"></script>
+<script src="/js/historyManager.js"></script>
 <script src="/js/index.js"></script>
 <script src="/js/errorHandling.js"></script>

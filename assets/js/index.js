@@ -1,11 +1,14 @@
 'use strict'
 
-document.getElementById("domainName").addEventListener("keyup", (event)=>{
-	if (event.key === "Enter") {
-		event.preventDefault()
-		initiate()
-	}
-})
+document.onload = function () {
+	setupHistoryPage();
+	document.getElementById("domainName").addEventListener("keyup", (event)=>{
+		if (event.key === "Enter") {
+			event.preventDefault()
+			initiate()
+		}
+	})
+}
 
 function initiate () {
 	closeRouteList();
@@ -178,7 +181,7 @@ function initiate () {
 		]
 	};
 	
-	const domainName = document.getElementById("domainName").value;
+	/* const domainName = document.getElementById("domainName").value;
 	const domainPatternValidation = isUrlValid(domainName);
 	if (!domainPatternValidation) {
 		showErrorPopUp(0);
@@ -190,10 +193,17 @@ function initiate () {
 		return
 	}
 	getTracedInfo(domainName).then(data=>{ 
-		console.log(data); 
-		generatingRoutesOnMap(data);
+		console.log(data);  */
+		let historyData = searchDataInHistory("google.com");
+		if (!historyData) {
+			const timestamp = Date.now();
+			generatingRoutesOnMap(dummyData);
+			saveDataIntoHistory("google.com",dummyData, timestamp);
+		}else {
+			generatingRoutesOnMap(historyData);
+		}
 		hideLoading();
-	})
+	//})
 }
 
 function isUrlValid(str) {
