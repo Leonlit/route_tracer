@@ -47,26 +47,22 @@ noscript {
     border:1px solid grey;
 }
 
-#searchIcon {
+#inputField > span {
     border-left:1px solid transparent;
     font-size:1.7em;
     transition:0.3s;
 }
 
-#searchIcon:hover {
-    border-left:1px solid grey;
+#inputField > span:hover {
     color:white;
 }
 
-#historyIcon {
-    position: fixed;
-    top: 20%;
-    left: 5px;
-    transition: 0.3s;
+#searchIcon:hover {
+    border-left:1px solid grey;
 }
 
 #historyIcon:hover {
-    color: white;
+    border-right:1px solid grey;
 }
 
 #historyListContainer {

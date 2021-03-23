@@ -11,10 +11,10 @@ function saveDataIntoHistory (domain, data, timestamp) {
 
     localStorage.setItem(domain, JSON.stringify(jsonData))
     const historyList = localStorage.getItem(listName);
-    let newList = [{
+    let newList = {
         name: domain,
         timestamp: timestamp
-    }];
+    };
     if (historyList != undefined) {
         try {
             jsonData = JSON.parse(historyList);
@@ -27,6 +27,8 @@ function saveDataIntoHistory (domain, data, timestamp) {
             console.log(err);
             localStorage.removeItem(listName);
         }
+    }else {
+        newList = [newList]
     }
     localStorage.setItem(listName, JSON.stringify(newList));
     addItemIntoHistoryPage(domain, timestamp);
@@ -66,7 +68,9 @@ function isHistoryTooOld (currTime, prevTime) {
     return false;
 }
 
+const historyList = document.getElementById("historyList");
 function setupHistoryPage () {
+    historyList.innerHTML = "";
     const itemList = localStorage.getItem("historyNameList");
     const jsonData = JSON.parse(itemList);
     jsonData.forEach(item => {
@@ -74,7 +78,6 @@ function setupHistoryPage () {
     });
 }
 
-const historyList = document.getElementById("historyList");
 function addItemIntoHistoryPage (name, timestamp) {
     const dateTime = formatingTimestamp(timestamp)
     const element = `
@@ -100,7 +103,7 @@ function openFromHistory (name) {
 }
 
 function formatingTimestamp (time) {
-    const date = new Date(time * 1000);
+    const date = new Date(time);
     const timeArr = [
         date.getHours(),
         date.getMinutes(),

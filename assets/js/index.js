@@ -1,6 +1,6 @@
 'use strict'
 
-document.onload = function () {
+window.onload = function () {
 	setupHistoryPage();
 	document.getElementById("domainName").addEventListener("keyup", (event)=>{
 		if (event.key === "Enter") {

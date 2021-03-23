@@ -15,13 +15,13 @@
 		<noscript>Please enable Javascript for this website. It needs Javascript to perform its magic!</noscript>
 		<div id="map"></div>
 		<div id="inputField" class="map_container">
+			<span id="historyIcon" onclick="openHistory()" class="glyphicon glyphicon-book clickable"></span>
 			<input required id="domainName" class="formInput" placeholder="domainName.com" autocomplete="off"/>
 			<span class="glyphicon glyphicon-search clickable" id="searchIcon" onclick="initiate()"></span>
 		</div>
 		
 		<div id="historyShader" class="shader" onclick="closeHistory()"></div>
-		<span id="historyIcon" onclick="openHistory()" class="glyphicon glyphicon-book clickable"></span>
-		<div id="historyListContainer" class="map_container">
+			<div id="historyListContainer" class="map_container">
 			<div></div>
 			<span class="closeBtn clickable" onclick="closeHistory()">X</span>
 			<div id="historyList" class="map_container">
