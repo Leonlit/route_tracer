@@ -25,7 +25,7 @@ function saveDataIntoHistory (domain, data, timestamp) {
             //since it's local storage better check if user changed it manually
             //and accidently break
             console.log(err);
-            localStorage.removeItem(listName);
+            deleteHistory(listName);
         }
     }else {
         newList = [newList]
@@ -73,33 +73,51 @@ function setupHistoryPage () {
     historyList.innerHTML = "";
     const itemList = localStorage.getItem("historyNameList");
     const jsonData = JSON.parse(itemList);
-    jsonData.forEach(item => {
-        addItemIntoHistoryPage(item.name, item.timestamp);
+    const cleanedData = removeOldData(jsonData.slice());
+    cleanedData.forEach(item => {
+        try {
+            addItemIntoHistoryPage(item.name, item.timestamp);
+        }catch (err){
+            console.log("An error occured when setting up history list.");
+        }
     });
+}
+
+function removeOldData (jsonData) {
+    const currTimestamp = Date.now();
+    console.log("test");
+    for (let index = 0; index < jsonData.length; index++) {
+        const currItem = jsonData[index];
+        if (isHistoryTooOld(currTimestamp, currItem.timestamp)) {
+            console.log("removed", currItem.name);
+            jsonData.splice(index, 1);
+            deleteHistory(currItem.name)
+        }
+    }
+    localStorage.setItem("historyNameList", JSON.stringify(jsonData));
+    return jsonData;
 }
 
 function addItemIntoHistoryPage (name, timestamp) {
     const dateTime = formatingTimestamp(timestamp);
     const index = document.getElementById("historyList").children.length;
     const element = `
-        <div class="historyItem">
+        <div class="historyItem map_container">
             <span class="historyName clickable" onclick="openFromHistory('${name}')">${name}</span>
             <span class="historyDate">${dateTime}</span>
-            <span class="deleteHistoryBtn clickable" onclick="deleteHistory('${name}', ${index})">X</span>
+            <span class="deleteHistoryBtn clickable" onclick="removeItemFromHistoryPage('${name}', ${index})">X</span>
         </div>
     `
     historyList.innerHTML += element ;
 }
 
-function removeItemFromHistoryPage (index) {
-    console.log(index);
+function removeItemFromHistoryPage (name, index) {
     const child = document.getElementsByClassName("historyItem")[index];
-    console.log(child);
     historyList.removeChild(child)
+    deleteHistory(name);
 }
 
-function deleteHistory (name, index) {
-    removeItemFromHistoryPage(index);
+function deleteHistory (name) {
     try {
         localStorage.removeItem(name);
     }catch (err) {

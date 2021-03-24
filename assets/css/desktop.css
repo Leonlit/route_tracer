@@ -71,6 +71,7 @@ noscript {
 #historyListContainer {
     display: none;
     position: fixed;
+    background-color: rgba(0, 0, 0, 0.5);
     left: 50%;
     top:50%;
     width:50%;
@@ -108,7 +109,8 @@ noscript {
 
 .historyItem {
     padding: 10px;
-    border-radius: 10px;
+    border-radius:5px;
+    margin-bottom: 5px;
 }
 
 .historyName {
