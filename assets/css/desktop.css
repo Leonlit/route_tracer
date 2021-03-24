@@ -51,17 +51,20 @@ noscript {
     border-left:1px solid transparent;
     font-size:1.7em;
     transition:0.3s;
+    color:rgb(97, 97, 97);
+    border-left:1px solid transparent;
 }
 
 #inputField > span:hover {
+    border-left:1px solid grey;
     color:white;
 }
 
-#searchIcon:hover {
-    border-left:1px solid grey;
+#searchIcon {
+    border-right:1px solid transparent;
 }
 
-#historyIcon:hover {
+#searchIcon:hover {
     border-right:1px solid grey;
 }
 
@@ -117,8 +120,21 @@ noscript {
     color: white;
 }
 
-.historyDate {
+.deleteHistoryBtn {
     float: right;
+    margin-right: 5%;
+    font-weight: 900;
+    transform: scale(1.3);
+    transition: 0.3s;
+}
+
+.deleteHistoryBtn:hover {
+    transform: scale(1.5);
+    text-shadow: 0px 3px 3px grey;
+}
+
+.historyDate {
+    margin-left: 5%;
 }
 
 #historyIcon {
@@ -307,6 +323,10 @@ noscript {
 
 .markerNum:hover {
     text-shadow: 0px 0px 5px black;
+}
+
+.leaflet-container a {
+    text-decoration: none;
 }
 
 footer {

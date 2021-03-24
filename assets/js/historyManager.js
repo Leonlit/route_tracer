@@ -79,14 +79,32 @@ function setupHistoryPage () {
 }
 
 function addItemIntoHistoryPage (name, timestamp) {
-    const dateTime = formatingTimestamp(timestamp)
+    const dateTime = formatingTimestamp(timestamp);
+    const index = document.getElementById("historyList").children.length;
     const element = `
         <div class="historyItem">
             <span class="historyName clickable" onclick="openFromHistory('${name}')">${name}</span>
             <span class="historyDate">${dateTime}</span>
+            <span class="deleteHistoryBtn clickable" onclick="deleteHistory('${name}', ${index})">X</span>
         </div>
     `
     historyList.innerHTML += element ;
+}
+
+function removeItemFromHistoryPage (index) {
+    console.log(index);
+    const child = document.getElementsByClassName("historyItem")[index];
+    console.log(child);
+    historyList.removeChild(child)
+}
+
+function deleteHistory (name, index) {
+    removeItemFromHistoryPage(index);
+    try {
+        localStorage.removeItem(name);
+    }catch (err) {
+        console.log(err);
+    }
 }
 
 function openFromHistory (name) {
