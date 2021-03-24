@@ -18,15 +18,15 @@ function showErrorPopUp(type) {
     openError(ERROR_TYPE[type].message);
 }
 
-const errPopUp = document.getElementById("errorPopUp");
+const errShader = document.getElementById("errorShader");
 const errContent = document.getElementById("errorContainer");
 
 function closeError(){
-    errPopUp.style.display = "none";
+    errShader.style.display = "none";
     errContent.innerHTML = '';
 }
 
 function openError(msg){
-    errPopUp.style.display = "block";
-    errContent.innerText = msg;
+    errShader.style.display = "block";
+    errContent.innerHTML = msg;
 }

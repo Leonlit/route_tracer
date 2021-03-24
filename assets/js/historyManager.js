@@ -15,7 +15,9 @@ function saveDataIntoHistory (domain, data, timestamp) {
         name: domain,
         timestamp: timestamp
     };
-    if (historyList != undefined) {
+    if (historyList == null || historyList == "") {
+        newList = [newList];
+    }else {
         try {
             jsonData = JSON.parse(historyList);
             jsonData = removeDuplicateInList(jsonData ,domain);
@@ -27,8 +29,6 @@ function saveDataIntoHistory (domain, data, timestamp) {
             console.log(err);
             deleteHistory(listName);
         }
-    }else {
-        newList = [newList]
     }
     localStorage.setItem(listName, JSON.stringify(newList));
     addItemIntoHistoryPage(domain, timestamp);
@@ -72,6 +72,10 @@ const historyList = document.getElementById("historyList");
 function setupHistoryPage () {
     historyList.innerHTML = "";
     const itemList = localStorage.getItem("historyNameList");
+    console.log(itemList);
+    if (itemList == null || itemList == "") {
+        return
+    }
     const jsonData = JSON.parse(itemList);
     const cleanedData = removeOldData(jsonData.slice());
     cleanedData.forEach(item => {
@@ -85,7 +89,6 @@ function setupHistoryPage () {
 
 function removeOldData (jsonData) {
     const currTimestamp = Date.now();
-    console.log("test");
     for (let index = 0; index < jsonData.length; index++) {
         const currItem = jsonData[index];
         if (isHistoryTooOld(currTimestamp, currItem.timestamp)) {
@@ -119,6 +122,17 @@ function removeItemFromHistoryPage (name, index) {
 
 function deleteHistory (name) {
     try {
+        if (name != "historyNameList") {
+            const data = localStorage.getItem("historyNameList");
+            const jsonData = JSON.parse(data);
+            for (let index=0;index < jsonData.length;index++) {
+                if (jsonData[index].name == name) {
+                    jsonData.splice(index, 1);
+                    break;
+                }
+            }
+            localStorage.setItem("historyNameList", jsonData)
+        }
         localStorage.removeItem(name);
     }catch (err) {
         console.log(err);

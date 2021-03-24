@@ -16,10 +16,12 @@
 		<div id="map"></div>
 		<div id="inputField" class="map_container">
 			<input required id="domainName" class="formInput" placeholder="domainName.com" autocomplete="off"/>
-			<span class="glyphicon glyphicon-search clickable" id="searchIcon" onclick="initiate()"></span>
-			<span id="historyIcon" onclick="openHistory()" class="glyphicon glyphicon-book clickable"></span>
+			<span title="Trace Route" class="glyphicon glyphicon-search clickable" id="searchIcon" onclick="initiate()"></span>
+			<span title="Route History Page" id="historyIcon" onclick="openHistory()" class="glyphicon glyphicon-book clickable"></span>
 		</div>
-		
+	
+		<img title="Source Code" id="githubIcon" class="socialMediaIcon clickable map_container" src="icon/GitHub_32.png" alt="Github Logo" onclick="window.open('https://github.com/Leonlit/routeInfo', '_blank')"/>
+
 		<div id="historyShader" class="shader" onclick="closeHistory()"></div>
 			<div id="historyListContainer" class="map_container">
 			<div></div>
@@ -33,7 +35,7 @@
 		</div>
 
 		<div id="routeContainer" class="map_container">
-			<div id="openCloseList" class="map_container clickable" onclick="openCloseRouteList()"></div>
+			<div title="Route details" id="openCloseList" class="map_container clickable" onclick="openCloseRouteList()"></div>
 			<div id="routeWrapper">
 				<details class="clickable">
 					<summary class="map_container">Route Connections</summary>
@@ -46,19 +48,18 @@
 			</div>
 		</div>
 		<footer class="map_container">
+			<span id="showing"></span>
 			<span class="footerHeader">
 				<h2><a>Route Tracer</a></h2>
 				<h5>v1.0</h5>
 			</span>
-			<span><a>source code</a></span>
-			<span></span>
 		</footer>
 
 		<div id="loaderShader" class="shader">
 			<div class="loader"></div>
 		</div>
-		<div id="errorPopUp" onclick="closeError()" class="shader">
-			<div class="errorContainer"></div>
+		<div id="errorShader" onclick="closeError()" class="shader">
+			<div id="errorContainer" class="map_container"></div>
 		</div>
 	</body>
 </html>

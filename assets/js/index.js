@@ -12,7 +12,6 @@ window.onload = function () {
 
 function initiate () {
 	closeRouteList();
-	showLoading();
 	const dummyData = {
 		"domain": "github.com",
 		"routes": [
@@ -181,29 +180,34 @@ function initiate () {
 		]
 	};
 	
-	/* const domainName = document.getElementById("domainName").value;
+	const domainName = document.getElementById("domainName").value;
+	if (domainName == "") {
+		openError("Warning, the input field is empty. Please provide a domain name")
+	}
 	const domainPatternValidation = isUrlValid(domainName);
 	if (!domainPatternValidation) {
 		showErrorPopUp(0);
-		return 
+		return
 	}
 	const domainStatusValidation = isDomainAlive(domainName);
 	if (!domainStatusValidation) {
 		showErrorPopUp(1);
 		return
 	}
+	showLoading();
 	getTracedInfo(domainName).then(data=>{ 
-		console.log(data);  */
-		let historyData = searchDataInHistory("google.com");
+		console.log(data);  
+		let historyData = searchDataInHistory(domainName);
 		if (!historyData) {
 			const timestamp = Date.now();
 			generatingRoutesOnMap(dummyData);
-			saveDataIntoHistory("google.com",dummyData, timestamp);
+			saveDataIntoHistory(domainName, dummyData, timestamp);
 		}else {
 			generatingRoutesOnMap(historyData);
 		}
+		document.getElementById("showing").innerText = "Showing: " + domainName;
 		hideLoading();
-	//})
+	})
 }
 
 function isUrlValid(str) {

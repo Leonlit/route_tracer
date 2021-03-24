@@ -151,6 +151,25 @@ noscript {
     left:0; 
 }
 
+#githubIcon {
+    border-radius: 5px;
+    padding: 5px;
+    width: 42px;
+    height: 42px;
+    position: fixed;
+    top: 30%;
+    left: 1%;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.socialMediaIcon {
+    opacity: 0.5;
+}
+
+.socialMediaIcon:hover {
+    opacity: 1;
+}
+
 .leaflet-touch .leaflet-bar a {
     color: grey;
     background-color: rgba(0, 0, 0, 0.8);
@@ -385,6 +404,20 @@ footer a:hover {
     width: 120px;
     height: 120px;
     animation: loaderSpin 2s linear infinite;
+}
+
+#errorContainer {
+    position: fixed;
+    top: 40%;
+    padding: 2%;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    height: 25%;
+    width: 25%;
+    border-radius: 5px;
+    font-size: 1.2em;
+    color: white;
 }
 
 .errorContainerOpen{
