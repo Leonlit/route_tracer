@@ -109,7 +109,7 @@ function generateEdges (coord, colour, toIP) {
         popUp = `<b>${initiatedPoint[1]["ip"]}</b>  to  <b>${toIP}</b>`;
         curvedLine.on("click", function (e){
             map.flyTo(curvedLine.getCenter(),3);
-            openRouteList();
+            openRouteConnection();
             window.location.href = `#edge_${position}`;
         });
         curvedLine.addTo(map);
@@ -128,7 +128,7 @@ function generateIconsForMarker(num, colour) {
         iconAnchor: [0, 24],
         labelAnchor: [-6, 0],
         popupAnchor: [0, -36],
-        html: `<a id="marker_${num}" class="customeMarker" style="${markerHtmlStyles}" href="#route_${num}" onclick="openRouteList()"><div class="markerNum">${num}</div></a>`
+        html: `<a id="marker_${num}" class="customeMarker" style="${markerHtmlStyles}" href="#route_${num}" onclick="openRouteEdges()"><div class="markerNum">${num}</div></a>`
     })
 }
 

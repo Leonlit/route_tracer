@@ -195,6 +195,7 @@ function initiate () {
 		return
 	}
 	showLoading();
+	openRouteList();
 	getTracedInfo(domainName).then(data=>{ 
 		console.log(data);  
 		let historyData = searchDataInHistory(domainName);

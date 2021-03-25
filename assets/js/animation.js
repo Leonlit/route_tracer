@@ -21,6 +21,16 @@ function openRouteList () {
     isRouteListOpen = true;
 }
 
+function openRouteConnection () {
+    openRouteList();
+    routeWrapper.getElementsByTagName("details")[0].open = true;
+}
+
+function openRouteEdges () {
+    openRouteList();
+    routeWrapper.getElementsByTagName("details")[1].open = true;
+}
+
 function closeRouteList(){
     openCloseBar.style.position = "inherit"
     routeContainer.style.top = "97%";
