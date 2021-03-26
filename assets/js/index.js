@@ -180,7 +180,8 @@ function initiate () {
 		]
 	};
 	
-	const domainName = document.getElementById("domainName").value;
+	const searchBox = document.getElementById("domainName");
+	const domainName = searchBox.value;
 	if (domainName == "") {
 		openError("Warning, the input field is empty. Please provide a domain name")
 	}
@@ -196,8 +197,8 @@ function initiate () {
 	}
 	showLoading();
 	openRouteList();
+	searchBox.value = "";
 	getTracedInfo(domainName).then(data=>{ 
-		console.log(data);  
 		let historyData = searchDataInHistory(domainName);
 		if (!historyData) {
 			const timestamp = Date.now();

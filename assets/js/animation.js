@@ -21,14 +21,18 @@ function openRouteList () {
     isRouteListOpen = true;
 }
 
+const routeEdges = routeWrapper.getElementsByTagName("details")[1];
+const routeConnections = routeWrapper.getElementsByTagName("details")[0];
 function openRouteConnection () {
     openRouteList();
-    routeWrapper.getElementsByTagName("details")[0].open = true;
+    routeEdges.open = false;
+    routeConnections.open = true;
 }
 
 function openRouteEdges () {
     openRouteList();
-    routeWrapper.getElementsByTagName("details")[1].open = true;
+    routeConnections.open = false;
+    routeEdges.open = true;
 }
 
 function closeRouteList(){
