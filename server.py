@@ -1,4 +1,5 @@
 #! /bin/python3
+import time
 from flask import Flask, render_template, send_from_directory, request, abort
 import module.initiate as initiate
 import module.rateLimiting as rateLimiting
@@ -9,18 +10,31 @@ app = Flask(__name__)
 def homePage():
     return render_template("index.html")
 
+global rate, prevTimestamp
+rate = 0
+prevTimestamp = time.time()
+
 # when user inputted the domain that he/she would like to trace
 @app.route("/tracedInfo/<string:ipAddr>", methods=["GET"])
 def tracedInfo(ipAddr):
     cookies = request.cookies
+    global rate, prevTimestamp
     rateLimited = rateLimiting.serverRateLimiting(cookies)
-    if rateLimited is not True:
-        routesInfo = initiate.initiateTracing(ipAddr)
-        if type(rateLimited) is dict:
-            return rateLimiting.resetCookie(routesInfo["message"], routesInfo["status"])
-        return rateLimiting.increaseCounter(cookies, routesInfo["message"], routesInfo["status"])
-    else:
+    print(rate)
+    if (time.time() - prevTimestamp > 60):
+        prevTimestamp = time.time()
+        rate = 0
+    if rate > 2:
         abort(429)
+    else:
+        rate = rate + 1
+        if rateLimited is not True:
+            routesInfo = initiate.initiateTracing(ipAddr)
+            if type(rateLimited) is dict:
+                return rateLimiting.resetCookie(routesInfo["message"], routesInfo["status"])
+            return rateLimiting.increaseCounter(cookies, routesInfo["message"], routesInfo["status"])
+        else:
+            abort(429)
         
         
 

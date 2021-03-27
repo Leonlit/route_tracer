@@ -198,6 +198,7 @@ function initiate () {
 	showLoading();
 	openRouteList();
 	searchBox.value = "";
+	searchBox.blur();
 	getTracedInfo(domainName).then(data=>{ 
 		let historyData = searchDataInHistory(domainName);
 		if (!historyData) {
