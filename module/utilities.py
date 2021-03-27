@@ -74,15 +74,3 @@ def pingDomainName(domainIP):
         __log.error(f"Could not PING {domainIP}")
         return False
     return result == 0
-
-# - use make_response instead of straight away return,
-#   then when return give the response code also
-# - check previous cookie if exists or not
-# - if yes, check if the timestamp is less than 1 min
-#   - if less than 1 min, get the request for the route
-#     and increase the other cookie value by one
-#   - for now setting to 5 request per min
-# - if no then, set the new cookies with the timestamps and counts
-def serverRateLimiting () {
-    prevTimestamp = 
-}

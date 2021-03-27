@@ -236,10 +236,15 @@ async function getTracedInfo (domainName) {
 
 async function getUrlRequest (url) {
 	return await fetch(url).then(response=>{
+		let stats = response.status;
 		if (response.ok) {
 			return response.json()
-		}else {
-			
+		}else if (stats == 429){
+			openError("You're too fast, slow down and try again!");
+		}else if (stats == 400) {
+			openError("The domain name is not valid, please check it and try again!");
+		}else if (stats >= 500) {
+			openError("Internal conflict, please try again later");
 		}
 		throw new Error("Something went wrong"); 
 	}).catch(error => {

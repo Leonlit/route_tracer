@@ -1,6 +1,7 @@
 #! /bin/python3
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_from_directory, request, abort
 import module.initiate as initiate
+import module.rateLimiting as rateLimiting
 
 app = Flask(__name__)
 
@@ -11,14 +12,30 @@ def homePage():
 # when user inputted the domain that he/she would like to trace
 @app.route("/tracedInfo/<string:ipAddr>", methods=["GET"])
 def tracedInfo(ipAddr):
-    routesInfo = initiate.initiateTracing(ipAddr)
-    return (routesInfo["message"],routesInfo["status"])
+    cookies = request.cookies
+    rateLimited = rateLimiting.serverRateLimiting(cookies)
+    if rateLimited is not True:
+        routesInfo = initiate.initiateTracing(ipAddr)
+        if type(rateLimited) is dict:
+            return rateLimiting.resetCookie(routesInfo["message"], routesInfo["status"])
+        return rateLimiting.increaseCounter(cookies, routesInfo["message"], routesInfo["status"])
+    else:
+        abort(429)
+        
+        
 
 # checking if the host can be reached
 @app.route("/pingDomain/<string:domainName>", methods=["GET"])
 def pingDomain(domainName):
-    domainNameAlive = initiate.checkIfDomainIsAlive(domainName)
-    return (domainNameAlive, domainNameAlive["status"])
+    cookies = request.cookies
+    rateLimited = rateLimiting.serverRateLimiting(cookies)
+    if rateLimited is not True:
+        domainNameAlive = initiate.checkIfDomainIsAlive(domainName)
+        if type(rateLimited) is dict:
+            return rateLimiting.resetCookie(domainNameAlive, domainNameAlive["status"])
+        return rateLimiting.increaseCounter(cookies, domainNameAlive, domainNameAlive["status"])
+    else:
+        abort(429)
 
 # for providing js, css, media file and as well as media files
 @app.route('/js/<path:path>')
