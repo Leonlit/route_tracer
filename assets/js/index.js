@@ -200,14 +200,10 @@ function initiate () {
 	searchBox.value = "";
 	searchBox.blur();
 	getTracedInfo(domainName).then(data=>{ 
-		let historyData = searchDataInHistory(domainName);
-		if (!historyData) {
-			const timestamp = Date.now();
-			generatingRoutesOnMap(dummyData);
-			saveDataIntoHistory(domainName, dummyData, timestamp);
-		}else {
-			generatingRoutesOnMap(historyData);
-		}
+		const timestamp = Date.now();
+		generatingRoutesOnMap(data);
+		saveDataIntoHistory(domainName, data, timestamp);
+
 		document.getElementById("showing").innerText = "Showing: " + domainName;
 		hideLoading();
 	})

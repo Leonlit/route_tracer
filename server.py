@@ -3,6 +3,9 @@ import time
 from flask import Flask, render_template, send_from_directory, request, abort
 import module.initiate as initiate
 import module.rateLimiting as rateLimiting
+import module.logOperation as log
+
+__log = log.loggingInit("utilities")
 
 app = Flask(__name__)
 
@@ -19,22 +22,16 @@ prevTimestamp = time.time()
 def tracedInfo(ipAddr):
     cookies = request.cookies
     global rate, prevTimestamp
-    rateLimited = rateLimiting.serverRateLimiting(cookies)
-    print(rate)
     if (time.time() - prevTimestamp > 60):
         prevTimestamp = time.time()
         rate = 0
     if rate > 2:
+        __log.error(f"")
         abort(429)
     else:
         rate = rate + 1
-        if rateLimited is not True:
-            routesInfo = initiate.initiateTracing(ipAddr)
-            if type(rateLimited) is dict:
-                return rateLimiting.resetCookie(routesInfo["message"], routesInfo["status"])
-            return rateLimiting.increaseCounter(cookies, routesInfo["message"], routesInfo["status"])
-        else:
-            abort(429)
+        routesInfo = initiate.initiateTracing(ipAddr)
+        return (routesInfo["message"], routesInfo["status"])
         
         
 

@@ -72,7 +72,6 @@ const historyList = document.getElementById("historyList");
 function setupHistoryPage () {
     historyList.innerHTML = "";
     const itemList = localStorage.getItem("historyNameList");
-    console.log(itemList);
     if (itemList == null || itemList == "") {
         return
     }

@@ -50,7 +50,6 @@ function showLoading(){
 }
 
 function hideLoading() {
-    console.log("test");
     loadingShader.style.display = "none";
 }
 
@@ -63,7 +62,6 @@ function openHistory() {
 }
 
 function closeHistory (){
-    console.log("test");
     historyContainer.style.display = "none"
     historyShader.style.display = "none"
 }

@@ -21,7 +21,6 @@ function generatingRoutesOnMap (data) {
     document.getElementById("routeEdges").innerHTML = "";
     const routes= data["routes"]
     const generatedColours = generateRandomColours(routes.filter(item => item["city"]).length, colours.slice());
-    console.log(generatedColours);
 	const mapLayer = new L.TileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {noWrap: true});
     
     const centroidPoint = calculateCentriodPoint(routes)

@@ -5,8 +5,8 @@ import module.logOperation as log
 from dotenv import load_dotenv
 import os, platform, subprocess, requests, json
 
+load_dotenv()
 IP_INFO_KEY = os.getenv("IPINFO_API_KEY")
-IP_GEOLOCATION_KEY = os.getenv("IPGEOLOCATION_API_KEY")
 
 __log = log.loggingInit("utilities")
 
@@ -49,6 +49,7 @@ def getIpsInfoUsingAPI (routes):
                 ipInfo = getRequestData(apiEndPoint)
                 if ipInfo is not None:
                     obj = obj | ipInfo # combining the data
+
                     coord_x, coord_y = obj["loc"].split(",")
                     newCoord = [float(coord_x),float(coord_y)]
                     obj["loc"] = newCoord

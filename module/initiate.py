@@ -13,7 +13,6 @@ def initiateTracing (ipAddr):
         return RequestType.serviceUnavailable.getResponse()
 
     fullRouteData = trace.getTraceInfo(ipAddr)
-    print(fullRouteData)
     if not fullRouteData:
         return RequestType.internalError.getResponse()
     fullrouteInfo = utilities.getIpsInfoUsingAPI(fullRouteData)
