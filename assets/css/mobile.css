@@ -73,8 +73,8 @@ noscript {
     position: fixed;
     background-color: rgba(0, 0, 0, 0.5);
     left: 50%;
-    top:50%;
-    width:50%;
+    top:40%;
+    width:80%;
     height:40%;
     padding: 3%;
     transform: translate(-50%, -50%);
@@ -170,6 +170,10 @@ noscript {
     opacity: 1;
 }
 
+.leaflet-control-zoom {
+    margin-top:80px !important;
+}
+
 .leaflet-touch .leaflet-bar a {
     color: grey;
     background-color: rgba(0, 0, 0, 0.8);
@@ -207,7 +211,6 @@ noscript {
 #routeWrapper {
     margin-top: 3vh;
     height: 97vh;
-    overflow-y: auto;
     scroll-behavior: smooth;
 }
 
