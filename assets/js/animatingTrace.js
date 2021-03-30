@@ -29,9 +29,7 @@ function generatingRoutesOnMap (data) {
     const centroidPoint = calculateCentriodPoint(routes)
     const boundary = generatingBoundary(routes);
     
-    map = L.map("map", {
-        minZoom: 2,
-    });
+    map = L.map("map",);
     map.on('drag', function() {
         map.panInsideBounds(boundary, { animate: false });
     });

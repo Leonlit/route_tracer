@@ -4,6 +4,8 @@ let isRouteListOpen = false;
 const routeContainer = document.getElementById("routeContainer");
 const openCloseBar = document.getElementById("openCloseList");
 const routeWrapper = document.getElementById("routeWrapper");
+const footer = document.getElementsByTagName("footer")[0]
+
 function openCloseRouteList() {
     if (!isRouteListOpen) {
         openRouteList();
@@ -14,7 +16,15 @@ function openCloseRouteList() {
 }
 
 function openRouteList () {
-    routeContainer.style.top = "0";
+    let position = "0";
+    if (isMobileScreen()) {
+        position = "50%"
+        footer.style.opacity = "0"
+        setTimeout(() => {
+            footer.style.display = "none"
+        }, 310);
+    }
+    routeContainer.style.top = position;
     setTimeout(()=>{
         openCloseBar.style.position = "fixed"
     }, 550)
@@ -35,9 +45,20 @@ function openRouteEdges () {
     routeEdges.open = true;
 }
 
+function isMobileScreen () {
+    return screen.width < 600;
+}
+
 function closeRouteList(){
+    let position = "97%"
+    if (isMobileScreen()) {
+        footer.style.display = "inline"
+        setTimeout(() => {
+            footer.style.opacity = "1"
+        }, 0);
+    }
     openCloseBar.style.position = "inherit"
-    routeContainer.style.top = "97%";
+    routeContainer.style.top = position;
     isRouteListOpen = false;
     setTimeout(()=>{
         routeWrapper.style.marginTop = "3vh";
