@@ -196,10 +196,10 @@ function initiate () {
 		return
 	}
 	showLoading();
-	openRouteList();
 	searchBox.value = "";
 	searchBox.blur();
 	getTracedInfo(domainName).then(data=>{ 
+		openRouteList();
 		const timestamp = Date.now();
 		generatingRoutesOnMap(data);
 		saveDataIntoHistory(domainName, data, timestamp);

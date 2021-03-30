@@ -7,14 +7,24 @@ def checkIfRequiredCookiePresent (cookies):
 def resetCookie (response, statsCode):
     timestamp = time.time()
     resp = make_response(response, statsCode)
-    resp.set_cookie("rateCounter", "1",max_age=60, httponly=True)
-    resp.set_cookie("rateTimestamp", str(timestamp), max_age=60, httponly=True)
+    resp.set_cookie("rateCounter", 
+                    "1",
+                    max_age=60,
+                    httponly=True
+                )
+    resp.set_cookie("rateTimestamp", 
+                    str(timestamp),
+                    max_age=60, 
+                    httponly=True
+                )
     return resp
 
 def increaseCounter(cookie, response, statsCode):
     resp = make_response(response, statsCode)
     newCounter = int(cookie.get("rateCounter")) + 1
-    resp.set_cookie("rateCounter", str(newCounter), max_age=60, httponly=True)
+    resp.set_cookie("rateCounter", str(newCounter),
+                    max_age=60, httponly=True
+                )
     return resp
 
 # time for rate is in seconds

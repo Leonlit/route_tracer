@@ -49,7 +49,6 @@ def getIpsInfoUsingAPI (routes):
                 ipInfo = getRequestData(apiEndPoint)
                 if ipInfo is not None:
                     obj = obj | ipInfo # combining the data
-
                     coord_x, coord_y = obj["loc"].split(",")
                     newCoord = [float(coord_x),float(coord_y)]
                     obj["loc"] = newCoord
@@ -58,6 +57,7 @@ def getIpsInfoUsingAPI (routes):
                 __log.error(f"{e.__class__} {e} occurred. Continuing with the next entry.")
         routes["routes"][index] = obj
     if routes:
+        print(routes)
         return routes
     return False
 

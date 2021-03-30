@@ -21,7 +21,10 @@ function generatingRoutesOnMap (data) {
     document.getElementById("routeEdges").innerHTML = "";
     const routes= data["routes"]
     const generatedColours = generateRandomColours(routes.filter(item => item["city"]).length, colours.slice());
-	const mapLayer = new L.TileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {noWrap: true});
+	const mapLayer = new L.TileLayer(
+        'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', 
+        {noWrap: true}
+    );
     
     const centroidPoint = calculateCentriodPoint(routes)
     const boundary = generatingBoundary(routes);
@@ -127,7 +130,8 @@ function generateIconsForMarker(num, colour) {
         iconAnchor: [0, 24],
         labelAnchor: [-6, 0],
         popupAnchor: [0, -36],
-        html: `<a id="marker_${num}" class="customeMarker" style="${markerHtmlStyles}" href="#route_${num}" onclick="openRouteEdges()"><div class="markerNum">${num}</div></a>`
+        html: `<a id="marker_${num}" class="customeMarker" style="${markerHtmlStyles}" href="#route_${num}" 
+                onclick="openRouteEdges()"><div class="markerNum">${num}</div></a>`
     })
 }
 
@@ -163,7 +167,9 @@ function appendEdgeToList (to, colour, coord) {
         const from = public_coords[fromIndex][1];
         const elements = `
             <div class="edgesInfo" id="edge_${fromIndex + 1}">
-                <div class="edgesHeader" onclick="focusToEdge(${coord})">${fromIndex + 1} <span style="color:${colour};">|------></span> ${fromIndex + 2}</div>
+                <div class="edgesHeader" onclick="focusToEdge(${coord})">
+                ${fromIndex + 1} <span style="color:${colour};">|------></span> ${fromIndex + 2}
+                    </div>
                 <div class="edgesWrapper">
                     <span class="edgesFrom">
                         <span>From</span>
@@ -194,7 +200,8 @@ function appendingRouteToListing(route, colour){
     if (route["ipType"] == "public") {
         const currIndex = public_coords.length + 1;
         item = `
-            <fieldset id="route_${currIndex}" class="route map_container" style="border: 2px solid ${colour};" onclick="focusMarker(${currIndex})">
+            <fieldset id="route_${currIndex}" class="route map_container" 
+            style="border: 2px solid ${colour};" onclick="focusMarker(${currIndex})">
                 <legend>${currIndex}</legend>
                 <span>${route["ip"]}</span>
                 <span>${route["ipType"]}</span>

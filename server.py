@@ -13,6 +13,7 @@ app = Flask(__name__)
 def homePage():
     return render_template("index.html")
 
+# for a dirty implementation for rate limiting
 global rate, prevTimestamp
 rate = 0
 prevTimestamp = time.time()
@@ -26,14 +27,12 @@ def tracedInfo(ipAddr):
         prevTimestamp = time.time()
         rate = 0
     if rate > 2:
-        __log.error(f"")
+        __log.error(f"Rate limit reach {time.time()}")
         abort(429)
     else:
         rate = rate + 1
         routesInfo = initiate.initiateTracing(ipAddr)
         return (routesInfo["message"], routesInfo["status"])
-        
-        
 
 # checking if the host can be reached
 @app.route("/pingDomain/<string:domainName>", methods=["GET"])
