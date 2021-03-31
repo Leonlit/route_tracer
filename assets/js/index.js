@@ -204,10 +204,14 @@ function initiate () {
 		generatingRoutesOnMap(data);
 		saveDataIntoHistory(domainName, data, timestamp);
 
-		document.getElementById("showing").innerText = "Showing: " + domainName;
+		changeShowingNameText(domainName);
 		hideLoading();
 	})
 }
+
+function changeShowingNameText (name) {
+	document.getElementById("showing").innerText = "Showing: " + name;
+} 
 
 function isUrlValid(str) {
 	var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol

@@ -223,7 +223,7 @@ noscript {
 }
 
 #routeContainer > div > details > summary {
-    font-size: 1.8em;
+    font-size: 1.4em;
     font-weight: 900;
     padding:20px;
     margin:0;
@@ -235,7 +235,7 @@ noscript {
     margin-top: 3%;
     height:auto;
     width: 100%;
-    font-size:1.2em;
+    font-size:1.1em;
     box-shadow: 0px 0px 3px grey;
     margin-bottom: 5vh;
     text-align: center;
@@ -252,14 +252,14 @@ noscript {
 
 .edgesHeader {
     padding:2%;
-    font-size: 1.2em;
+    font-size: 1.1em;
     font-weight: 900;
     transition: 0.3s;
 }
 
 .edgesHeader:hover {
     box-shadow:0px 0px 5px white;
-    font-size: 1.4em;
+    font-size: 1.2em;
 }
 
 .edgesInfo > .edgesWrapper {
@@ -421,7 +421,7 @@ footer a:hover {
     text-align: center;
     transform: translate(-50%, -50%);
     height: 25%;
-    width: 25%;
+    width: 80%;
     border-radius: 5px;
     font-size: 1.2em;
     color: white;

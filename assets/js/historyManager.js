@@ -142,8 +142,10 @@ function openFromHistory (name) {
     const data = localStorage.getItem(name);
     const jsonData = JSON.parse(data)
     if (data != undefined) {
+        
         showLoading();
-        generatingRoutesOnMap(jsonData.data)
+        generatingRoutesOnMap(jsonData.data);
+        changeShowingNameText(name);
         hideLoading();
         closeHistory();
     }else {
