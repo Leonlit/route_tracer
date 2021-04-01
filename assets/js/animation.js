@@ -46,7 +46,7 @@ function openRouteEdges () {
 }
 
 function isMobileScreen () {
-    return screen.width < 600;
+    return screen.width < 1100;
 }
 
 function closeRouteList(){

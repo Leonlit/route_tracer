@@ -85,8 +85,6 @@ noscript {
 .closeBtn {
     color: white;
     float:right;
-    margin-right: -4%;
-    margin-top: -4%;
     font-size: 2em;
     font-weight: 900;
     transition: 0.3s;

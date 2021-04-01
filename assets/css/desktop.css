@@ -33,6 +33,10 @@
         transform: translateX(0);
         width:auto;
     }
+    .closeBtn {
+        margin-right: -4%;
+        margin-top: -4%;
+    }
 
     #errorContainer {
         height: 25%;

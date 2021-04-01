@@ -70,11 +70,14 @@ function isHistoryTooOld (currTime, prevTime) {
 
 const historyList = document.getElementById("historyList");
 function setupHistoryPage () {
-    historyList.innerHTML = "";
     const itemList = localStorage.getItem("historyNameList");
-    if (itemList == null || itemList == "") {
+    console.log(itemList);
+    if (itemList == null || itemList == "[]") {
+        historyList.innerHTML = "None";
         return
     }
+    console.log("tsest");
+    historyList.innerHTML = "";
     const jsonData = JSON.parse(itemList);
     const cleanedData = removeOldData(jsonData.slice());
     cleanedData.forEach(item => {

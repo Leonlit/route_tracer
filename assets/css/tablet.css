@@ -1,0 +1,23 @@
+@media only screen and (min-width: 720px) {
+    #routeEdges > .edgesInfo {
+        width: 45%;
+        display: inline-block;
+    }
+
+    #routeList > fieldset {
+        width: 45%;
+        display: inline-block;
+    }
+
+    #historyList {
+        margin-top: 10%;
+    }
+
+    .edgesHeader {
+        border: 1px solid grey;
+    }
+
+    footer {
+        width: auto;
+    }
+}
