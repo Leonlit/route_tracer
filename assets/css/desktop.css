@@ -15,6 +15,10 @@
         font-size: 1.8em;
     }
 
+    #historyList {
+        margin-top: 5%;
+    }
+
     #routeEdges {
         font-size:1.2em;
     }
@@ -27,11 +31,20 @@
         font-size: 1.4em;
     }
 
+    #routeEdges > .edgesInfo {
+        width: 100%;
+        display: block;
+    }
+
+    #routeList > fieldset {
+        width: 100%;
+        display: block;
+    }
+
     footer {
         bottom: 15px;
         left: 15px;
         transform: translateX(0);
-        width:auto;
     }
     .closeBtn {
         margin-right: -4%;

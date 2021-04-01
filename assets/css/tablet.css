@@ -4,9 +4,23 @@
         display: inline-block;
     }
 
+    #routeList {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .formInput {
+        font-size: 1.14em;
+    }
+
     #routeList > fieldset {
         width: 45%;
-        display: inline-block;
+    }
+
+    #inputField > span {
+        font-size:1.7em;
     }
 
     #historyList {
@@ -16,8 +30,8 @@
     .edgesHeader {
         border: 1px solid grey;
     }
-
     footer {
         width: auto;
+        min-width: 400px;
     }
 }

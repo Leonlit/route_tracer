@@ -18,7 +18,7 @@ function openCloseRouteList() {
 function openRouteList () {
     let position = "0";
     if (isMobileScreen()) {
-        position = "50%"
+        position = "60%"
         footer.style.opacity = "0"
         setTimeout(() => {
             footer.style.display = "none"
