@@ -254,5 +254,5 @@ function generatingBoundary(routes) {
 }
 
 function focusToEdge (x, y) {
-    map.flyTo(new L.LatLng(x, y), 3);
+    map.flyTo(new L.LatLng(x-1, y), 7);
 }

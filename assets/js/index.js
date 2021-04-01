@@ -184,6 +184,7 @@ function initiate () {
 	const domainName = searchBox.value;
 	if (domainName == "") {
 		openError("Warning, the input field is empty. Please provide a domain name")
+		hideLoading();
 	}
 	const domainPatternValidation = isUrlValid(domainName);
 	if (!domainPatternValidation) {
@@ -240,14 +241,17 @@ async function getUrlRequest (url) {
 		let stats = response.status;
 		if (response.ok) {
 			return response.json()
-		}else if (stats == 429){
-			openError("You're too fast, slow down and try again!");
-		}else if (stats == 400) {
-			openError("The domain name is not valid, please check it and try again!");
-		}else if (stats >= 500) {
-			openError("Internal conflict, please try again later");
+		}else {
+			if (stats == 429){
+				openError("You're too fast, slow down and try again!");
+			}else if (stats == 400) {
+				openError("The domain name is not valid, please check it and try again!");
+			}else if (stats >= 500) {
+				openError("Internal conflict, please try again later");
+			}
+			hideLoading();
+			throw new Error("Something went wrong"); 
 		}
-		throw new Error("Something went wrong"); 
 	}).catch(error => {
 		console.log(error);
 	})
