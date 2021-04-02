@@ -114,7 +114,9 @@ function generateEdges (coord, colour, toIP) {
         });
         curvedLine.addTo(map);
         curvedLine.bindPopup(popUp);
-        return midpointLatLng;
+        console.log(midpointLatLng);
+        console.log([curvedLine.getCenter().lat, curvedLine.getCenter().lng]);
+        return [curvedLine.getCenter().lat, curvedLine.getCenter().lng];
     }
 }
 
@@ -254,5 +256,5 @@ function generatingBoundary(routes) {
 }
 
 function focusToEdge (x, y) {
-    map.flyTo(new L.LatLng(x-1, y), 7);
+    map.flyTo(new L.LatLng(x, y), 4);
 }
