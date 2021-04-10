@@ -72,11 +72,10 @@ const historyList = document.getElementById("historyList");
 function setupHistoryPage () {
     const itemList = localStorage.getItem("historyNameList");
     console.log(itemList);
+    historyList.innerHTML = "";
     if (itemList == null || itemList == "[]") {
-        historyList.innerHTML = "None";
         return
     }
-    console.log("tsest");
     historyList.innerHTML = "";
     const jsonData = JSON.parse(itemList);
     const cleanedData = removeOldData(jsonData.slice());
@@ -94,7 +93,6 @@ function removeOldData (jsonData) {
     for (let index = 0; index < jsonData.length; index++) {
         const currItem = jsonData[index];
         if (isHistoryTooOld(currTimestamp, currItem.timestamp)) {
-            console.log("removed", currItem.name);
             jsonData.splice(index, 1);
             deleteHistory(currItem.name)
         }
@@ -133,7 +131,7 @@ function deleteHistory (name) {
                     break;
                 }
             }
-            localStorage.setItem("historyNameList", jsonData)
+            localStorage.setItem("historyNameList", JSON.stringify(jsonData))
         }
         localStorage.removeItem(name);
     }catch (err) {

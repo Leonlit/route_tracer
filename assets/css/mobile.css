@@ -196,6 +196,7 @@ noscript {
 #routeContainer {
     position: fixed;
     overflow-y:auto;
+    scroll-behavior: smooth;
     top:97%;
     width:100%;
     color: white;
@@ -207,7 +208,6 @@ noscript {
 #routeWrapper {
     margin-top: 3vh;
     height: 97vh;
-    scroll-behavior: smooth;
 }
 
 #routeContainer > div > details {

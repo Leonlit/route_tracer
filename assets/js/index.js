@@ -1,9 +1,7 @@
-'use strict'
-
 window.onload = function () {
 	setupHistoryPage();
 	document.getElementById("domainName").addEventListener("keyup", (event)=>{
-		if (event.key === "Enter") {
+		if (event.key == "Enter") {
 			event.preventDefault()
 			initiate()
 		}
