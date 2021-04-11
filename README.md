@@ -8,7 +8,12 @@ Get the information of the node that our packet gone through when reaching to a 
  - HTML
  - CSS
  - JS
- - Leaflet
+ - [Leaflet](https://leafletjs.com/)
+ - [IPInfo API](https://ipinfo.io/)
+
+## Setup
+
+To setup the project
 
 ## Screenshots 
 
