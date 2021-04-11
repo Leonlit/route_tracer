@@ -25,6 +25,12 @@ Well, setting up the project might be hard, but to run the application, just run
 
 You can see the application in action [here](https://www.youtube.com/watch?v=hHN45rq4lUU)
 
+## Features
+ - Logging
+ - Old route is saved (more than 10 minute, that route's previous history would be deleted)
+ - responsive design
+ - Interactive interface (edges and vertices can be clicked to view their details)
+
 ## Screenshots 
 
 ### Main Page (desktop)
