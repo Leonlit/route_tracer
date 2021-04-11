@@ -21,6 +21,10 @@ After you've created a virtual environment for the cloned project, open a termin
 
 Well, setting up the project might be hard, but to run the application, just run ```python server.py```. Which you can then open up the web application on http://127.0.0.1:5000 or http://localhost:5000
 
+## Demo
+
+You can see the application in action [here](https://www.youtube.com/watch?v=hHN45rq4lUU)
+
 ## Screenshots 
 
 ### Main Page (desktop)
