@@ -48,11 +48,13 @@ function removeDuplicateInList(list, name) {
 //finding the Json data from local storage, if the timestamp
 //is less than 10 minute, we can use back the data
 function searchDataInHistory (domain) {
-    const dataInJson = localStorage.getItem(domain)
+    let dataInJson = localStorage.getItem(domain)
     if (dataInJson != undefined) {
         const currentTimestamp = Date.now();
         const isHistoryOld = isHistoryTooOld(dataInJson.timestamp, currentTimestamp);
+        dataInJson = JSON.parse(dataInJson);
         if (!isHistoryOld) {
+            console.log(dataInJson);
             return dataInJson.data;
         }
     }
@@ -143,7 +145,6 @@ function openFromHistory (name) {
     const data = localStorage.getItem(name);
     const jsonData = JSON.parse(data)
     if (data != undefined) {
-        
         showLoading();
         generatingRoutesOnMap(jsonData.data);
         changeShowingNameText(name);

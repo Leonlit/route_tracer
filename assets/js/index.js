@@ -9,6 +9,7 @@ window.onload = function () {
 }
 
 function initiate () {
+	setupHistoryPage();
 	closeRouteList();
 	const dummyData = {
 		"domain": "github.com",
@@ -197,15 +198,24 @@ function initiate () {
 	showLoading();
 	searchBox.value = "";
 	searchBox.blur();
-	getTracedInfo(domainName).then(data=>{ 
-		openRouteList();
-		const timestamp = Date.now();
-		generatingRoutesOnMap(data);
-		saveDataIntoHistory(domainName, data, timestamp);
+	const isThereOldData = searchDataInHistory(domainName);
+	if (isThereOldData != false) {
+		console.log(isThereOldData);
+		generatingRoutesOnMap(isThereOldData);
+        changeShowingNameText(domainName);
+        hideLoading();
+        closeHistory();
+	}else {
+		getTracedInfo(domainName).then(data=>{ 
+			openRouteList();
+			const timestamp = Date.now();
+			generatingRoutesOnMap(data);
+			saveDataIntoHistory(domainName, data, timestamp);
 
-		changeShowingNameText(domainName);
-		hideLoading();
-	})
+			changeShowingNameText(domainName);
+			hideLoading();
+		})
+	}
 }
 
 function changeShowingNameText (name) {
