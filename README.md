@@ -1,4 +1,4 @@
-# routeInfo
+# Route Tracer
 Get the information of the node that our packet gone through when reaching to a domain. The website used computer's command tracert (this is in window, if it's in linux the application would use traceroute).
 
 ## Tech used
