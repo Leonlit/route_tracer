@@ -38,7 +38,7 @@ def traceDomain(domainIP):
         }
         print("done setting up data")
         __log.info(f"Route traced for [{domainIP}]")
-        # returning a dictionary ^
+        # returning a dictionary 
         return data
     except Exception as e:
         __log.critical(f"Unexpected error occured! Could not trace route. for domain [{domainIP}]")
@@ -47,12 +47,13 @@ def traceDomain(domainIP):
 def filterRouteOutput(output, osType):
     outputContents = output.split("\n")
     #matching ip addresses
-    regex = '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}'
+    ipRegex = '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}'
+    msRegex = '\d{1,} m'
     ips = []
     for line in outputContents:
-        match = re.findall(regex, line)
-        if match:
-            ips.append(match[0])
+        ipMatch = re.findall(ipRegex, line)
+        if ipMatch:
+            ips.append(ipMatch[0])
     if not ips:
         return False
     if osType: # means its window

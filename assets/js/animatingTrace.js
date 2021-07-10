@@ -70,7 +70,7 @@ function generateEdges (coord, colour, toIP) {
         const offsetX = initiatedPointCoord[1] - coord[1],
         offsetY = initiatedPointCoord[0] - coord[0];
 
-        const latlngs = [];
+        //const latlngs = [];
         const r = Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2)),
         theta = Math.atan2(offsetY, offsetX);
         const thetaOffset = (3.14 / 10);
@@ -95,7 +95,7 @@ function generateEdges (coord, colour, toIP) {
             easing: 'ease-in-out',
         }
 
-        latlngs.push(coord, midpointLatLng, initiatedPointCoord);
+        //latlngs.push(coord, midpointLatLng, initiatedPointCoord);
 
         const curvedLine = new L.curve(
             [
