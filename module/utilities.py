@@ -36,10 +36,13 @@ def manageRequestResponse(statsCode, url):
 
 
 def getIpsInfoUsingAPI (routes):
+    tempAvg = routes["avgTime"]
+    del routes["avgTime"]
     for index, ip in enumerate(routes["routes"]):
         ipType = ip_utilities.getIP_type(ip)
         obj = {
-            "ipType": ipType
+            "ipType": ipType,
+            "avgTime": tempAvg[index]
         }
         if not ip_utilities.isIP_public(ip):
             obj["ip"] = ip

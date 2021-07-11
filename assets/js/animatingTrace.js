@@ -218,6 +218,7 @@ function appendingRouteToListing(route, colour){
             <fieldset class="route map_container" style="border: 2px solid grey;">
                 <span>${route["ip"]}</span>
                 <span>${route["ipType"]}</span>
+                <span>${route["avgTime"]} ms</span>
         `
     }
     container.innerHTML += item + "</fieldset>";
