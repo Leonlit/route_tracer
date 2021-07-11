@@ -1,9 +1,8 @@
 import module.ipUtilities as ip_utilities
-import module.utilities as utilities
 import module.logOperation as log
 
 from dotenv import load_dotenv
-import os, platform, subprocess, requests, json
+import os, platform, subprocess, requests
 
 load_dotenv()
 IP_INFO_KEY = os.getenv("IPINFO_API_KEY")
@@ -60,7 +59,6 @@ def getIpsInfoUsingAPI (routes):
                 __log.error(f"{e.__class__} {e} occurred. Continuing with the next entry.")
         routes["routes"][index] = obj
     if routes:
-        print(routes)
         return routes
     return False
 

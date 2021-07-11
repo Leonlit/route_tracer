@@ -1,5 +1,4 @@
-import module.utilities as utilities
-import platform, subprocess, re, ipaddress, logging
+import platform, subprocess, re
 import module.logOperation as log
 
 def getTraceInfo (domainIP):
@@ -21,7 +20,6 @@ def traceDomain(domainIP):
     
     # constructing the command
     commandtype = ('traceroute' ,'tracert')
-    filename = f"./{domainIP}_route.txt"
     command = [commandtype[osType], "-4", domainIP]
 
     # if somehow the command execution return an unexpected error
@@ -43,7 +41,7 @@ def traceDomain(domainIP):
         # returning a dictionary 
         return data
     except Exception as e:
-        __log.critical(f"Unexpected error occured! Could not trace route. for domain [{domainIP}]")
+        __log.error(f"Unexpected error occured! Could not trace route. for domain [{domainIP}]")
     return False
 
 def calculateAveTime(result):
