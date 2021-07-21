@@ -206,11 +206,13 @@ function initiate () {
         hideLoading();
         closeHistory();
 	}else {
-		getTracedInfo(domainName).then(data=>{ 
+		getTracedInfo(domainName).then(data=>{
+			console.log(data);
+			console.log(data["message"]);
 			openRouteList();
 			const timestamp = Date.now();
-			generatingRoutesOnMap(data);
-			saveDataIntoHistory(domainName, data, timestamp);
+			generatingRoutesOnMap(data["message"]);
+			saveDataIntoHistory(domainName, data["message"], timestamp);
 
 			changeShowingNameText(domainName);
 			hideLoading();

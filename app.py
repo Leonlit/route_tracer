@@ -1,11 +1,8 @@
 #! /bin/python3
 import time
-from flask import Flask, render_template, send_from_directory, request, abort
+from flask import Flask, render_template, send_from_directory, request, abort, after_this_request
 import module.initiate as initiate
 import module.rateLimiting as rateLimiting
-import module.logOperation as log
-
-__log = log.loggingInit("utilities")
 
 app = Flask(__name__)
 
@@ -22,17 +19,15 @@ prevTimestamp = time.time()
 @app.route("/tracedInfo/<string:ipAddr>", methods=["GET"])
 def tracedInfo(ipAddr):
     cookies = request.cookies
-    global rate, prevTimestamp
-    if (time.time() - prevTimestamp > 60):
-        prevTimestamp = time.time()
-        rate = 0
-    if rate > 2:
-        __log.error(f"Rate limit reach {time.time()}")
-        abort(429)
-    else:
-        rate = rate + 1
+    rateLimited = rateLimiting.serverRateLimiting(cookies)
+    if rateLimited is not True:
         routesInfo = initiate.initiateTracing(ipAddr)
-        return (routesInfo["message"], routesInfo["status"])
+        if type(rateLimited) is dict:
+            return rateLimiting.resetCookie(routesInfo, routesInfo["status"])
+        return rateLimiting.increaseCounter(cookies, routesInfo, routesInfo["status"])
+    else:
+        abort(429)
+
 
 # checking if the host can be reached
 @app.route("/pingDomain/<string:domainName>", methods=["GET"])
@@ -65,4 +60,4 @@ def route_External_File(path):
     return send_from_directory('assets/external', path)
 
 if __name__ == '__main__':
-    app.run(debug = False)
+    app.run(debug = True)
