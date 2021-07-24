@@ -27,12 +27,8 @@ function generatingRoutesOnMap (data) {
     );
     
     const centroidPoint = calculateCentriodPoint(routes)
-    const boundary = generatingBoundary(routes);
     
     map = L.map("map",);
-    map.on('drag', function() {
-        map.panInsideBounds(boundary, { animate: false });
-    });
     map.addLayer(mapLayer);
     map.setView(centroidPoint, 2)
     
