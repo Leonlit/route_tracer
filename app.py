@@ -63,4 +63,5 @@ if __name__ == '__main__':
     app.run(debug = False)
     app.config.update(
         SESSION_COOKIE_SECURE=True,
+        SESSION_COOKIE_HTTPONLY=True,
     )

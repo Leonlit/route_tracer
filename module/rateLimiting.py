@@ -10,21 +10,27 @@ def resetCookie (response, statsCode):
     resp.set_cookie("rateCounter", 
                     "1",
                     max_age=60,
-                    httponly=True
+                    httponly=True,
+                    secure=True
                 )
     resp.set_cookie("rateTimestamp", 
                     str(timestamp),
                     max_age=60, 
-                    httponly=True
+                    httponly=True,
+                    secure=True
                 )
     return resp
 
 def increaseCounter(cookie, response, statsCode):
     resp = make_response(response, statsCode)
     newCounter = int(cookie.get("rateCounter")) + 1
-    resp.set_cookie("rateCounter", str(newCounter),
-                    max_age=60, httponly=True
-                )
+    resp.set_cookie(
+        "rateCounter", 
+        str(newCounter),
+        max_age=60, 
+        httponly=True, 
+        secure=True
+    )
     return resp
 
 # time for rate is in seconds
