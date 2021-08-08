@@ -27,6 +27,7 @@ def initiateTracing (ipAddr):
         __log.Error(f"{ipAddr} {msg}")
         return obj
     fullrouteInfo = utilities.getIpsInfoUsingAPI(fullRouteData)
+    
     global rate_limit_reached
     if rate_limit_reached:
         obj = RequestType.rateLimitReach.getResponse()
