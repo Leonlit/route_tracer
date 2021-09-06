@@ -12,19 +12,19 @@ def initiateTracing (ipAddr):
     if not ip_utilities.isDomain_and_IP_valid(ipAddr):
         obj = RequestType.invalidIP.getResponse()
         msg = obj["message"]
-        __log.Error(f"{ipAddr} {msg}")
+        __log.error(f"{ipAddr} {msg}")
         return obj
     if not utilities.pingDomainName(ipAddr):
         obj = RequestType.serviceUnavailable.getResponse()
         msg = obj["message"]
-        __log.Error(f"{ipAddr} {msg}")
+        __log.error(f"{ipAddr} {msg}")
         return obj
 
     fullRouteData = trace.getTraceInfo(ipAddr)
     if not fullRouteData:
         obj = RequestType.internalError.getResponse()
         msg = obj["message"]
-        __log.Error(f"{ipAddr} {msg}")
+        __log.error(f"{ipAddr} {msg}")
         return obj
     fullrouteInfo = utilities.getIpsInfoUsingAPI(fullRouteData)
     
@@ -32,7 +32,7 @@ def initiateTracing (ipAddr):
     if rate_limit_reached:
         obj = RequestType.rateLimitReach.getResponse()
         msg = obj["message"]
-        __log.Error(f"{ipAddr} {msg}")
+        __log.error(f"{ipAddr} {msg}")
         return obj
     req = RequestError(200, fullrouteInfo)
     return req.getResponse()
@@ -41,12 +41,12 @@ def checkIfDomainIsAlive(domainIP):
     if not ip_utilities.isDomain_and_IP_valid(domainIP):
         obj = RequestType.invalidIP.getResponse()
         msg = obj["message"]
-        __log.Error(f"{domainIP} {msg}")
+        __log.error(f"{domainIP} {msg}")
         return obj
     res = utilities.pingDomainName(domainIP)
     if not res:
         obj = RequestType.serviceUnavailable.getResponse()
         msg = obj["message"]
-        __log.Error(f"{domainIP} {msg}")
+        __log.error(f"{domainIP} {msg}")
         return obj
     return RequestType.success.getResponse()
