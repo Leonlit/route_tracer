@@ -13,9 +13,13 @@ Get the information of the node that our packet gone through when reaching to a 
 
 ## Setup
 
+Before downloading the application, make sure your system have Microsoft Visual C++ 14 or above before you can correctly install required python libraries. Easiest solution would be to download Visual Studio and installing the C++ tools from it.
+
 To setup the project you'll just need to make sure python and pip3 is installed on your machine. Then, clone this repository to a folder that you want on your machine. After that create a virtual environment using [virtualenv](https://pypi.org/project/virtualenv/). Although it's not required, it's recommended to use it.
 
 After you've created a virtual environment for the cloned project, open a terminal in the directory that you've cloned this project to, activate the virtual environment using ```. ./venv/Scripts/activate```. Then execute ```pip3 install -r requirements.txt``` to install all the libraries that the project needs.
+
+Then after that, you'll need to create a .env file in the application folder to store your IPINFO access token.
 
 ## Running the project
 
