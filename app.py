@@ -60,7 +60,7 @@ def route_External_File(path):
     return send_from_directory('assets/external', path)
 
 if __name__ == '__main__':
-    app.run(debug = False)
+    app.run()
     app.config.update(
         SESSION_COOKIE_SECURE=True,
         SESSION_COOKIE_HTTPONLY=True,
